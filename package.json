@@ -15,13 +15,13 @@
     "clean": "rimraf ./build",
     "start": "echo TODO",
     "build": "echo TODO",
-    "test": "run-s -s lint jest",
+    "test": "run-s -s lint",
     "lint": "run-s -s lint:*",
     "lint:js": "eslint --report-unused-disable-directives --ignore-path .gitignore .",
     "lint:md": "remark -i .gitignore --no-stdout --use remark-lint *.md",
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
-    "ci": "run-s -s clean build"
+    "ci": "run-s -s clean test build"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.55",
