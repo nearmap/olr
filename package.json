@@ -13,6 +13,7 @@
   "homepage": "https://github.com/nearmap/olr",
   "scripts": {
     "clean": "rimraf ./build",
+    "git": "git add -A && git-cz",
     "start": "echo TODO",
     "build": "echo TODO",
     "test": "run-s -s lint jest",
@@ -40,6 +41,8 @@
     "babel-eslint": "^8.0.2",
     "babel-jest": "^23.4.2",
     "canvas-prebuilt": "^1.6.5-prerelease.1",
+    "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.2.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-react": "^7.5.1",
@@ -55,5 +58,10 @@
   },
   "dependencies": {
     "ol": "^5.1.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
