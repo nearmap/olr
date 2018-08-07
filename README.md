@@ -30,3 +30,25 @@ Run the tests:
 ```bash
 npm test
 ```
+
+## Maintainers
+
+[@kollhof](https://github.com/kollhof)
+
+[@nickmanks](https://github.com/nickmanks)
+
+## Contribute
+
+PRs accepted.
+
+Commits must use Angular commit message standard.  Pull requests try to use the pull request template provided.
+
+Use:
+
+```bash
+npm run git
+```
+
+> This will run `git add -A && git-cz`
+
+See [the contribute file](CONTRIBUTING.md)!
