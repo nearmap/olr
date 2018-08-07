@@ -20,7 +20,7 @@ Please also follow code style, use the linter provided to help with styling.  Al
 
 ## Contributor License Agreement
 
-Your contribution will be under our [license](https://raw.githubusercontent.com/nearmap/olr/master/LICENSE) as per [GitHub's terms of service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license).
+Your contribution will be under our [license](./LICENSE) as per [GitHub's terms of service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license).
 
 
 ## Pull request guidelines
