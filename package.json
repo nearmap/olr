@@ -21,7 +21,7 @@
     "lint:md": "remark -i .gitignore --no-stdout --use remark-lint *.md",
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
-    "ci": "run-s -s clean test build"
+    "ci": "run-s -s clean build"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.55",
