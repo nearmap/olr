@@ -10,9 +10,7 @@ Please use the [GitHub issue tracker](https://github.com/nearmap/olr/issues). Be
 
 ## Contributing Code
 
-Please try to use ISSUE and PULL REQUEST templates where provided.
-
-Follow the Angular commit message guidelines when committing code, or use the provided `npm run git` command to run _commitizen_ commits.
+Follow the Angular commit message guidelines when committing code, or use the provided `npm run git` command to run [_commitizen_](https://github.com/commitizen/cz-cli) commits.
 
 Our preferred means of receiving contributions is through [pull requests](https://help.github.com/articles/using-pull-requests). Make sure
 that your pull request follows our pull request guidelines below before submitting it.
@@ -50,22 +48,6 @@ Your pull request must:
 
 Please submit separate pull requests for separate issues.  This allows each to
 be reviewed on its own merits.
-
-
-### Contain a clean history of small, incremental, logically separate commits, with no merge commits
-
-The commit history explains to the reviewer the series of modifications to the
-code that you have made and breaks the overall contribution into a series of
-easily-understandable chunks.  Any individual commit should not add more than
-one new class, component or one new function.  Do not submit commits that change thousands of lines or that contain more than one distinct logical change.  Trivial
-commits, e.g. to fix lint errors, should be merged into the commit that
-introduced the error.  See the [Atomic Commit Convention on Wikipedia](http://en.wikipedia.org/wiki/Atomic_commit#Atomic_Commit_Convention) for more detail.
-
-`git apply --patch` and `git rebase` can help you create a clean commit
-history.
-[Reviewboard.org](http://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
-and [Pro GIT](http://git-scm.com/book/en/Git-Tools-Rewriting-History) have
-explain how to use them.
 
 
 ### Use clear commit messages
