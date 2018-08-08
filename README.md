@@ -31,16 +31,10 @@ Run the tests:
 npm test
 ```
 
-## Maintainers
-
-[@kollhof](https://github.com/kollhof)
-
-[@nickmanks](https://github.com/nickmanks)
-
 ## Contribute
 
 PRs accepted.
 
-Commits must use Angular commit message standard.  Pull requests try to use the pull request template provided.
+Commits must use [commit message guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).  Pull requests try to use the pull request template provided.
 
 See [the contribute file](CONTRIBUTING.md)!

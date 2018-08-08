@@ -10,10 +10,7 @@ Please use the [GitHub issue tracker](https://github.com/nearmap/olr/issues). Be
 
 ## Contributing Code
 
-Follow the Angular commit message guidelines when committing code, or use the provided `npm run git` command to run [_commitizen_](https://github.com/commitizen/cz-cli) commits.
-
-Our preferred means of receiving contributions is through [pull requests](https://help.github.com/articles/using-pull-requests). Make sure
-that your pull request follows our pull request guidelines below before submitting it.
+Follow the [Commit message guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) when committing code, or use the provided `npx git-cz` command to run [_commitizen_](https://github.com/commitizen/cz-cli) commits.
 
 Please also follow code style, use the linter provided to help with styling.  All code must pass 100% test coverage and cover all use cases before merge.
 
@@ -28,23 +25,16 @@ Your contribution will be under our [license](./LICENSE) as per [GitHub's terms 
 Before working on a pull request, create an issue explaining what you want to contribute. This ensures that your pull request won't go unnoticed, and that you are not contributing something that is not suitable for the project. The pull request description should reference the original issue.
 
 Your pull request must:
+ * Address a single issue or add a single item of functionality.
 
  * Follow OLR's coding style.
 
- * Pass the integration tests run automatically by the Travis Continuous
+ * Pass the unit tests run automatically by the Travis Continuous
    Integration system.
-
- * Address a single issue or add a single item of functionality.
 
  * Use clear commit messages in Angular standard.
 
  * Be possible to merge automatically.
-
-
-### Address a single issue or add a single item of functionality
-
-Please submit separate pull requests for separate issues.  This allows each to
-be reviewed on its own merits.
 
 
 ### Use clear commit messages
