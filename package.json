@@ -53,6 +53,7 @@
     "react-test-renderer": "^16.4.2",
     "remark-cli": "^5.0.0",
     "remark-lint": "^6.0.1",
+    "remark-preset-lint-recommended": "^3.0.2",
     "rimraf": "^2.6.2"
   },
   "dependencies": {
@@ -62,5 +63,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
   }
 }
