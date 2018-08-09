@@ -30,3 +30,11 @@ Run the tests:
 ```bash
 npm test
 ```
+
+## Contribute
+
+PRs accepted.
+
+Commits must use [commit message guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).  Pull requests try to use the pull request template provided.
+
+See [the contribute file](CONTRIBUTING.md)!
