@@ -18,7 +18,7 @@
     "test": "run-s -s lint",
     "lint": "run-s -s lint:*",
     "lint:js": "eslint --report-unused-disable-directives --ignore-path .gitignore .",
-    "lint:md": "remark -i .gitignore --no-stdout --use remark-lint *.md",
+    "lint:md": "remark --no-stdout --use remark-lint *.md",
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
     "ci": "run-s -s clean test build"
@@ -53,6 +53,7 @@
     "react-test-renderer": "^16.4.2",
     "remark-cli": "^5.0.0",
     "remark-lint": "^6.0.1",
+    "remark-preset-lint-recommended": "3.0.2",
     "rimraf": "^2.6.2"
   },
   "dependencies": {
