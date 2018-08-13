@@ -7,4 +7,12 @@ notifications:
 node_js:
   - '9'
 
-script: npm run ci
+jobs:
+  include:
+    # Here is where you would test multiple node versions if required
+    # Default stage is 'test'
+    - script: npm run ci
+    # New stage 'semantic-release'
+    - stage: sematic-release
+    - script: echo 'Running semantic-release to determine release and publish...'
+    - script: npm run semantic-release
