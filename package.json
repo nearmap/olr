@@ -21,7 +21,8 @@
     "lint:md": "remark -i .gitignore --no-stdout --use remark-lint *.md",
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
-    "ci": "run-s -s clean test build"
+    "ci": "run-s -s clean test build",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.55",
@@ -53,7 +54,8 @@
     "react-test-renderer": "^16.4.2",
     "remark-cli": "^5.0.0",
     "remark-lint": "^6.0.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "semantic-release": "^15.9.8"
   },
   "dependencies": {
     "ol": "^5.1.3"
