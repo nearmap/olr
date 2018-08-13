@@ -16,8 +16,7 @@ stages:
 
 jobs:
   include:
-    # Here is where you would test multiple node versions if required
-    - script: npm run ci
-    # New stage 'semantic-release'
+    - stage: test
+      script: npm run ci
     - stage: publish
       script: echo 'Running semantic-release to determine release and publish...'
