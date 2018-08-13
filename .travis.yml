@@ -2,19 +2,22 @@ language: node_js
 cache:
   directories:
     - ~/.npm
+
 notifications:
   email: false
+
 node_js:
   - '9'
+
 stages:
   - test
   - name: publish
     if: branch = master
+
 jobs:
   include:
     # Here is where you would test multiple node versions if required
-    - stage: test
     - script: npm run ci
     # New stage 'semantic-release'
     - stage: publish
-    - script: echo 'Running semantic-release to determine release and publish...'
+      script: echo 'Running semantic-release to determine release and publish...'
