@@ -9,8 +9,8 @@ import Map, {MapCtx} from './map';
 import {LayerGroupCtx} from './layer/group';
 
 
-const render = (cmp, div=null)=> renderer.create(
-  cmp, {
+const render = (component, div=null)=> renderer.create(
+  component, {
     createNodeMock: (element)=> {
       if (element.type === 'div') {
         return div;

@@ -4,16 +4,13 @@ import renderer from 'react-test-renderer';
 import LayerGroup, {LayerGroupCtx} from './group';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 describe('<LayerGroup />', ()=> {
   const layers = {push: jest.fn(), remove: jest.fn()};
   const parent = {getLayers: ()=> layers};
 
 
   it('add its own layer-group to parent layer-group from context', ()=> {
-    render(
+    renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <LayerGroup id='test-layer-group' />
       </LayerGroupCtx.Provider>
@@ -25,7 +22,7 @@ describe('<LayerGroup />', ()=> {
 
 
   it('provides own layer-group to children via context', ()=> {
-    render(
+    renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <LayerGroup id='test-layer-group'>
           <LayerGroup id='test-layer-group-child' />
@@ -40,7 +37,7 @@ describe('<LayerGroup />', ()=> {
 
 
   it('handles prop updates', ()=> {
-    render(
+    renderer.create(
       <LayerGroup layerGroup={parent} />
     ).update(
       <LayerGroup layerGroup={parent} visible={true} />

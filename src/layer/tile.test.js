@@ -9,9 +9,6 @@ import {LayerGroupCtx} from './group';
 import TileLayer from './tile';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 const LayerChild = consumer(LayerCtx)(
   ({layer})=> (
     <layer-child layer={layer} />
@@ -24,7 +21,7 @@ describe('<TileLayer />', ()=> {
   const parent = {getLayers: ()=> layers};
 
   it('adds its own layer to parent layer-group from context', ()=> {
-    render(
+    renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <TileLayer id='test-layer' />
       </LayerGroupCtx.Provider>
@@ -36,13 +33,13 @@ describe('<TileLayer />', ()=> {
 
 
   it('removes its own layer from parent layer-group', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <TileLayer />
       </LayerGroupCtx.Provider>
     );
 
-    cmp.unmount();
+    rendered.unmount();
 
     const [[layer]] = layers.push.mock.calls;
     expect(layers.remove).toHaveBeenCalledWith(layer);
@@ -50,13 +47,13 @@ describe('<TileLayer />', ()=> {
 
 
   it('provides own layer to children via context', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <TileLayer layerGroup={parent}>
         <LayerChild />
       </TileLayer>
     );
 
-    const layerChild = cmp.root.findByType('layer-child');
+    const layerChild = rendered.root.findByType('layer-child');
 
     const [[layer]] = layers.push.mock.calls;
     expect(layerChild.props.layer).toBe(layer);
@@ -64,7 +61,7 @@ describe('<TileLayer />', ()=> {
 
 
   it('handles prop updates', ()=> {
-    render(
+    renderer.create(
       <TileLayer layerGroup={parent} />
     ).update(
       <TileLayer layerGroup={parent} visible={true} />

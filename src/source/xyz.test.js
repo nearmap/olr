@@ -12,9 +12,6 @@ import {SourceCtx} from '.';
 import XYZSource from './xyz';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 const SourceChild = consumer(SourceCtx)(({source})=> (
   <source-child source={source} />
 ));
@@ -24,7 +21,7 @@ describe('<XYZSource />', ()=> {
   const layer = {setSource: jest.fn()};
 
   it('sets its source on parent layer', ()=> {
-    render(
+    renderer.create(
       <LayerCtx.Provider value={{layer}}>
         <XYZSource />
       </LayerCtx.Provider>
@@ -35,13 +32,13 @@ describe('<XYZSource />', ()=> {
 
 
   it('provides own source to children via context', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <XYZSource layer={layer}>
         <SourceChild />
       </XYZSource>
     );
 
-    const sourceChild = cmp.root.findByType('source-child');
+    const sourceChild = rendered.root.findByType('source-child');
 
     const [[source]] = layer.setSource.mock.calls;
     expect(sourceChild.props.source).toBe(source);
@@ -52,7 +49,7 @@ describe('<XYZSource />', ()=> {
     const projection1 = getProjection('EPSG:3857');
     const projection2 = getProjection('EPSG:4326');
 
-    render(
+    renderer.create(
       <XYZSource layer={layer} projection={projection1} />
     ).update(
       <XYZSource layer={layer} projection={projection2} />
@@ -68,7 +65,7 @@ describe('<XYZSource />', ()=> {
   it('does not update source if projection is same', ()=> {
     const projection = getProjection('EPSG:3857');
 
-    render(
+    renderer.create(
       <XYZSource layer={layer} projection={projection} />
     ).update(
       <XYZSource layer={layer} projection={projection} foo='spam' />
@@ -80,7 +77,9 @@ describe('<XYZSource />', ()=> {
 
   it('uses tileUrlFunction', ()=> {
     const tileUrlFunction = jest.fn();
-    render(<XYZSource layer={layer} tileUrlFunction={tileUrlFunction} />);
+    renderer.create(
+      <XYZSource layer={layer} tileUrlFunction={tileUrlFunction} />
+    );
     const [[source]] = layer.setSource.mock.calls;
 
     source.getTileUrlFunction()([0, 0], 1);
@@ -91,7 +90,9 @@ describe('<XYZSource />', ()=> {
 
   it('uses tileLoadFunction', ()=> {
     const tileLoadFunction = jest.fn();
-    render(<XYZSource layer={layer} tileLoadFunction={tileLoadFunction} />);
+    renderer.create(
+      <XYZSource layer={layer} tileLoadFunction={tileLoadFunction} />
+    );
     const [[source]] = layer.setSource.mock.calls;
     const tile = {};
 

@@ -8,15 +8,12 @@ import {MapCtx} from './map';
 import View from './view';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 describe('<View />', ()=> {
   const map = {setView: jest.fn()};
 
 
   it('sets its view on parent map', ()=> {
-    render(
+    renderer.create(
       <MapCtx.Provider value={{map}}>
         <View
           center={[1, 1]}
@@ -39,7 +36,7 @@ describe('<View />', ()=> {
   it('updates view based on props', ()=> {
     const projection = getProjection('EPSG:3857');
 
-    render(
+    renderer.create(
       <View
         map={map}
         projection={projection}
@@ -73,7 +70,7 @@ describe('<View />', ()=> {
   it('does not update if there are no changes', ()=> {
     const projection = getProjection('EPSG:3857');
 
-    render(
+    renderer.create(
       <View
         map={map}
         projection={projection}
@@ -108,7 +105,7 @@ describe('<View />', ()=> {
     const projection1 = getProjection('EPSG:3857');
     const projection2 = getProjection('EPSG:4326');
 
-    render(
+    renderer.create(
       <View map={map} projection={projection1} />
     ).update(
       <View map={map} projection={projection2} />
@@ -122,7 +119,7 @@ describe('<View />', ()=> {
 
   it('registers event handlers', ()=> {
     const propChanged = jest.fn();
-    render(<View map={map} onPropertyChange={propChanged} />);
+    renderer.create(<View map={map} onPropertyChange={propChanged} />);
     const [[view]] = map.setView.mock.calls;
 
     const evt = {type: 'propertychange', target: view};

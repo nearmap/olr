@@ -11,9 +11,6 @@ import {SourceCtx} from '.';
 import VectorSource from './vector';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 const SourceChild = consumer(SourceCtx)(({source})=> (
   <source-child source={source} />
 ));
@@ -24,7 +21,7 @@ describe('<VectorSource />', ()=> {
 
 
   it('sets its source on parent layer', ()=> {
-    render(
+    renderer.create(
       <LayerCtx.Provider value={{layer}}>
         <VectorSource />
       </LayerCtx.Provider>
@@ -35,13 +32,13 @@ describe('<VectorSource />', ()=> {
 
 
   it('provides own source to children via context', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <VectorSource layer={layer}>
         <SourceChild />
       </VectorSource>
     );
 
-    const sourceChild = cmp.root.findByType('source-child');
+    const sourceChild = rendered.root.findByType('source-child');
 
     const [[source]] = layer.setSource.mock.calls;
     expect(sourceChild.props.source).toBe(source);

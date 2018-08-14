@@ -9,9 +9,6 @@ import {LayerGroupCtx} from './group';
 import VectorLayer from './vector';
 
 
-const render = (cmp)=> renderer.create(cmp);
-
-
 const LayerChild = consumer(LayerCtx)(({layer})=> (
   <layer-child layer={layer} />
 ));
@@ -22,7 +19,7 @@ describe('<VectorLayer />', ()=> {
   const parent = {getLayers: ()=> layers};
 
   it('adds its own layer to parent layer-group from context', ()=> {
-    render(
+    renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <VectorLayer id='test-layer' />
       </LayerGroupCtx.Provider>
@@ -34,13 +31,13 @@ describe('<VectorLayer />', ()=> {
 
 
   it('removes its own layer from parent layer-group', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
         <VectorLayer />
       </LayerGroupCtx.Provider>
     );
 
-    cmp.unmount();
+    rendered.unmount();
 
     const [[layer]] = layers.push.mock.calls;
     expect(layers.remove).toHaveBeenCalledWith(layer);
@@ -48,13 +45,13 @@ describe('<VectorLayer />', ()=> {
 
 
   it('provides own layer to children via context', ()=> {
-    const cmp = render(
+    const rendered = renderer.create(
       <VectorLayer layerGroup={parent}>
         <LayerChild />
       </VectorLayer>
     );
 
-    const layerChild = cmp.root.findByType('layer-child');
+    const layerChild = rendered.root.findByType('layer-child');
 
     const [[layer]] = layers.push.mock.calls;
     expect(layerChild.props.layer).toBe(layer);
@@ -62,7 +59,7 @@ describe('<VectorLayer />', ()=> {
 
 
   it('handles prop updates', ()=> {
-    render(
+    renderer.create(
       <VectorLayer layerGroup={parent} />
     ).update(
       <VectorLayer layerGroup={parent} visible={true} />

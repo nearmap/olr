@@ -5,32 +5,37 @@ import {unByKey} from 'ol/Observable';
 
 
 const removeAllListeners = (registered)=> {
-  for (const [evtType, key] of registered.entries()) {
-    unByKey(key);
+  for (const [evtType, listener] of registered.entries()) {
+    unByKey(listener);
     registered.delete(evtType);
   }
 };
 
-const removeUnusedListeners = (registered, previous, current)=> {
-  for (const evtType of Reflect.ownKeys(previous)) {
-    const listener = registered.get(evtType);
 
-    if (listener && current[evtType] === undefined) {
+const removeUnusedListeners = (registered, component)=> {
+  const {props} = component;
+
+  for (const [evtType, listener] of registered.entries()) {
+    if (props[evtType] === undefined) {
       unByKey(listener);
       registered.delete(evtType);
     }
   }
 };
 
-const addNewListeners = (registered, target, cmp)=> {
-  const current = cmp.props;
 
-  for (const evtType of Reflect.ownKeys(current)) {
-    const hasHandlerProp = typeof current[evtType] === 'function';
+const addNewListeners = (registered, component)=> {
+  const {target, ...props} = component.props;
 
-    if (hasHandlerProp && !registered.has(evtType)) {
-      const handler = (...args)=> cmp.props[evtType](...args);
-      registered.set(evtType, target.on(evtType, handler));
+  for (const evtType of Reflect.ownKeys(props)) {
+    if (props[evtType] && !registered.has(evtType)) {
+      // We don't re-register if a prop value has changed,
+      // instead we register a generic handler for the event
+      // that will call the prop whatever the value may be at
+      // the time of the event is fired.
+      const handler = (...args)=> component.props[evtType](...args);
+      const listener = target.on(evtType, handler);
+      registered.set(evtType, listener);
     }
   }
 };
@@ -49,16 +54,15 @@ class EventHandler extends React.Component {
   }
 
   syncListeners(previousProps) {
-    const {listeners} = this;
-    const {target, ...newHandlers} = this.props;
+    const {listeners, props} = this;
 
-    if (previousProps.target === target) {
-      removeUnusedListeners(listeners, previousProps, newHandlers);
+    if (previousProps.target === props.target) {
+      removeUnusedListeners(listeners, this);
     } else {
       removeAllListeners(listeners);
     }
 
-    addNewListeners(listeners, target, this);
+    addNewListeners(listeners, this);
   }
 
   componentDidUpdate(previousProps) {
