@@ -37,17 +37,19 @@ describe('<EventHandler />', ()=> {
   it('unregisters handlers from target when target changes', ()=> {
     const change = jest.fn();
     const target2 = new Observable();
+    const evt1 = {type: 'change', target};
+    const evt2 = {type: 'change', target2};
 
     renderer.create(
       <EventHandler target={target} change={change} />
     ).update(
       <EventHandler target={target2} change={change} />
     );
-    target.changed();
-    target2.changed();
+    target.dispatchEvent(evt1);
+    target2.dispatchEvent(evt2);
 
-    expect(change).not.toHaveBeenCalled();
-    expect(change).toHaveBeenCalled();
+    expect(change).not.toHaveBeenCalledWith(evt1);
+    expect(change).toHaveBeenCalledWith(evt2);
   });
 
 
