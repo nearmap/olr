@@ -1,7 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {withLayer} from '.';
+import {consumer} from '../hoc';
+
+import {LayerCtx} from '.';
 import {LayerGroupCtx} from './group';
 
 import VectorLayer from './vector';
@@ -10,7 +12,7 @@ import VectorLayer from './vector';
 const render = (cmp)=> renderer.create(cmp);
 
 
-const LayerChild = withLayer(({layer})=> (
+const LayerChild = consumer(LayerCtx)(({layer})=> (
   <layer-child layer={layer} />
 ));
 

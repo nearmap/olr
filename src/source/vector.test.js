@@ -3,8 +3,10 @@ import renderer from 'react-test-renderer';
 
 import OlVector from 'ol/source/Vector';
 
+import {consumer} from '../hoc';
+
 import {LayerCtx} from '../layer';
-import {withSource} from '.';
+import {SourceCtx} from '.';
 
 import VectorSource from './vector';
 
@@ -12,7 +14,7 @@ import VectorSource from './vector';
 const render = (cmp)=> renderer.create(cmp);
 
 
-const SourceChild = withSource(({source})=> (
+const SourceChild = consumer(SourceCtx)(({source})=> (
   <source-child source={source} />
 ));
 

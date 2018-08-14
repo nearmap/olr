@@ -3,8 +3,10 @@ import renderer from 'react-test-renderer';
 
 import OlMap from 'ol/Map';
 
-import Map, {withMap} from './map';
-import {withLayerGroup} from './layer/group';
+import {consumer} from './hoc';
+
+import Map, {MapCtx} from './map';
+import {LayerGroupCtx} from './layer/group';
 
 
 const render = (cmp, div=null)=> renderer.create(
@@ -19,7 +21,7 @@ const render = (cmp, div=null)=> renderer.create(
 );
 
 
-const MapChild = withMap(withLayerGroup(
+const MapChild = consumer(MapCtx)(consumer(LayerGroupCtx)(
   ({map, layerGroup})=> (
     <map-child map={map} layerGroup={layerGroup} />
   )

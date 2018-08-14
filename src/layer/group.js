@@ -3,23 +3,13 @@ import PropTypes from 'prop-types';
 
 import OlLayerGroup from 'ol/layer/Group';
 
-import {wrap} from '../hoc';
+import {consumer} from '../hoc';
 
 
 export const LayerGroupCtx = createContext({layerGroup: null});
 
 
-export const withLayerGroup = (WrappedComponent)=> {
-  const WithLayerGroup = (props)=> (
-    <LayerGroupCtx.Consumer>
-      {({layerGroup})=> <WrappedComponent layerGroup={layerGroup} {...props} />}
-    </LayerGroupCtx.Consumer>
-  );
-
-  return wrap(WithLayerGroup, WrappedComponent);
-};
-
-
+@consumer(LayerGroupCtx)
 class LayerGroup extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string,
@@ -56,4 +46,5 @@ class LayerGroup extends React.PureComponent {
   }
 }
 
-export default withLayerGroup(LayerGroup);
+
+export default LayerGroup;

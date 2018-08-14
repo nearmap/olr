@@ -1,7 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {withLayer} from '.';
+import {consumer} from '../hoc';
+
+import {LayerCtx} from '.';
 import {LayerGroupCtx} from './group';
 
 import TileLayer from './tile';
@@ -10,9 +12,11 @@ import TileLayer from './tile';
 const render = (cmp)=> renderer.create(cmp);
 
 
-const LayerChild = withLayer(({layer})=> (
-  <layer-child layer={layer} />
-));
+const LayerChild = consumer(LayerCtx)(
+  ({layer})=> (
+    <layer-child layer={layer} />
+  )
+);
 
 
 describe('<TileLayer />', ()=> {

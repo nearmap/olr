@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import {get as getProjection} from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
 
-import {withLayer} from '../layer';
+import {consumer} from '../hoc';
+import {LayerCtx} from '../layer';
+
 import {SourceCtx} from '.';
 
 
+@consumer(LayerCtx)
 class XYZSource extends React.PureComponent {
   static propTypes = {
     layer: PropTypes.object,
@@ -87,4 +90,4 @@ class XYZSource extends React.PureComponent {
   }
 }
 
-export default withLayer(XYZSource);
+export default XYZSource;

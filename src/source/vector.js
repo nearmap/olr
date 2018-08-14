@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import OlVectorSource from 'ol/source/Vector';
 import OlCollection from 'ol/Collection';
 
-import {withLayer} from '../layer';
+import {consumer} from '../hoc';
+import {LayerCtx} from '../layer';
+
 import {SourceCtx} from '.';
 
 
+@consumer(LayerCtx)
 class VectorSource extends React.Component {
   static propTypes = {
     layer: PropTypes.object,
@@ -38,4 +41,4 @@ class VectorSource extends React.Component {
   }
 }
 
-export default withLayer(VectorSource);
+export default VectorSource;

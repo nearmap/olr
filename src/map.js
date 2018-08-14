@@ -8,20 +8,9 @@ import {altKeyOnly} from 'ol/events/condition';
 
 import {LayerGroupCtx} from './layer/group';
 import EventHandler from './event-handler';
-import {wrap} from './hoc';
 
 
 export const MapCtx = createContext({viewer: null});
-
-
-export const withMap = (WrappedComponent)=> {
-  const WithMap = (props)=> (
-    <MapCtx.Consumer>
-      {({map})=> <WrappedComponent map={map} {...props} />}
-    </MapCtx.Consumer>
-  );
-  return wrap(WithMap, WrappedComponent);
-};
 
 
 /**

@@ -4,10 +4,9 @@ module.exports = {
   plugins: [
     // Makes sure babel does not include the same code snipped in each file,
     // but imports helpers from a single module.
-    ['@babel/plugin-transform-runtime', {
-      polyfill: false
-    }],
-    ['@babel/plugin-proposal-class-properties'],
+    '@babel/plugin-transform-runtime',
+    ['@babel/plugin-proposal-decorators', {legacy: true}],
+    '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-numeric-separator',
     '@babel/plugin-proposal-optional-catch-binding',
     '@babel/plugin-proposal-throw-expressions'

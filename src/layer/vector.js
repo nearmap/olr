@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 import OlVectorLayer from 'ol/layer/Vector';
 
+import {consumer} from '../hoc';
+
 import {LayerCtx} from '.';
-import {withLayerGroup} from './group';
+import {LayerGroupCtx} from './group';
 
 
+@consumer(LayerGroupCtx)
 class VectorLayer extends React.Component {
   static propTypes = {
     layerGroup: PropTypes.object,
@@ -56,4 +59,4 @@ class VectorLayer extends React.Component {
 }
 
 
-export default withLayerGroup(VectorLayer);
+export default VectorLayer;

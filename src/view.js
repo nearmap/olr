@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import OlView from 'ol/View';
 
+import {consumer} from './hoc';
+
 import EventHandler from './event-handler';
-import {withMap} from './map';
+import {MapCtx} from './map';
 
 
 const updateView = (view, {center, zoom, rotation, minZoom, maxZoom})=> {
@@ -48,6 +50,7 @@ const hasProjectionChanged = (view, newProj)=> {
 };
 
 
+@consumer(MapCtx)
 class View extends React.PureComponent {
   static propTypes = {
     map: PropTypes.object,
@@ -93,4 +96,4 @@ class View extends React.PureComponent {
   }
 }
 
-export default withMap(View);
+export default View;

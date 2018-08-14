@@ -5,10 +5,13 @@ import OlTileLayer from 'ol/layer/Tile';
 
 import EventHandler from '../event-handler';
 
+import {consumer} from '../hoc';
+
 import {LayerCtx} from '.';
-import {withLayerGroup} from './group';
+import {LayerGroupCtx} from './group';
 
 
+@consumer(LayerGroupCtx)
 class TileLayer extends React.PureComponent {
   static propTypes = {
     layerGroup: PropTypes.object,
@@ -63,4 +66,4 @@ class TileLayer extends React.PureComponent {
   }
 }
 
-export default withLayerGroup(TileLayer);
+export default TileLayer;
