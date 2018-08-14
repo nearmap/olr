@@ -25,22 +25,21 @@ Your contribution will be under our [license](./LICENSE) as per [GitHub's terms 
 Before working on a pull request, create an issue explaining what you want to contribute. This ensures that your pull request won't go unnoticed, and that you are not contributing something that is not suitable for the project. The pull request description should reference the original issue.
 
 Your pull request must:
- * Address a single issue or add a single item of functionality.
+*   Address a single issue or add a single item of functionality.
 
- * Follow OLR's coding style.
+*   Follow OLR's coding style.
 
- * Pass the unit tests run automatically by the Travis Continuous
-   Integration system.
+*   Pass the unit tests run automatically by the Travis Continuous Integration system.
 
- * Use clear commit messages in Angular standard.
+*   Use clear commit messages in Angular standard.
 
- * Be possible to merge automatically.
+*   Be possible to merge automatically.
 
 
 ### Use clear commit messages
 
 Commit messages should be short, and appropriately typed and scoped. We follow
-https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines
+[these commit guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
 for the formatting of commit messages.
 
 > NOTE that general changes should be typed as **chore**, minor/major changes should be typed as **feat**.
