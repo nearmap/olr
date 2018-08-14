@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import OlVectorSource from 'ol/source/Vector';
 import OlCollection from 'ol/Collection';
-
 import {consumer} from '../hoc';
 import {LayerCtx} from '../layer';
-
 import {SourceCtx} from '.';
 
 

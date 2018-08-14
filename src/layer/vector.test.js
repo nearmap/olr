@@ -1,11 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
 import {consumer} from '../hoc';
-
 import {LayerCtx} from '.';
 import {LayerGroupCtx} from './group';
-
 import VectorLayer from './vector';
 
 

@@ -1,14 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
 import {get as getProjection} from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
-
 import {consumer} from '../hoc';
-
 import {LayerCtx} from '../layer';
 import {SourceCtx} from '.';
-
 import XYZSource from './xyz';
 
 

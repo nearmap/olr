@@ -1,8 +1,6 @@
 import React, {createContext} from 'react';
 import PropTypes from 'prop-types';
-
 import OlLayerGroup from 'ol/layer/Group';
-
 import {consumer} from '../hoc';
 
 

@@ -1,13 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
 import OlVector from 'ol/source/Vector';
-
 import {consumer} from '../hoc';
-
 import {LayerCtx} from '../layer';
 import {SourceCtx} from '.';
-
 import VectorSource from './vector';
 
 

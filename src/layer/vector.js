@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import OlVectorLayer from 'ol/layer/Vector';
-
 import {consumer} from '../hoc';
-
 import {LayerCtx} from '.';
 import {LayerGroupCtx} from './group';
 

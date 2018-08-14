@@ -1,11 +1,9 @@
 import React, {createContext} from 'react';
 import PropTypes from 'prop-types';
 import OlMap from 'ol/Map';
-
 import OlDragRotate from 'ol/interaction/DragRotate';
 import {defaults as interactionDefaults} from 'ol/interaction';
 import {altKeyOnly} from 'ol/events/condition';
-
 import {LayerGroupCtx} from './layer/group';
 import EventHandler from './event-handler';
 

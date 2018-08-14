@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import OlTileLayer from 'ol/layer/Tile';
-
 import EventHandler from '../event-handler';
-
 import {consumer} from '../hoc';
-
 import {LayerCtx} from '.';
 import {LayerGroupCtx} from './group';
 

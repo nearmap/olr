@@ -1,8 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
 import Observable from 'ol/Observable';
-
 import EventHandler from './event-handler';
 
 

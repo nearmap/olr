@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import OlView from 'ol/View';
-
 import {consumer} from './hoc';
-
 import EventHandler from './event-handler';
 import {MapCtx} from './map';
 
