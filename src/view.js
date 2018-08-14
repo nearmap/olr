@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OlView from 'ol/View';
-import {consumer} from './hoc';
+import { consumer } from './hoc';
 import EventHandler from './event-handler';
-import {MapCtx} from './map';
+import { MapCtx } from './map';
 
-
-const updateView = (view, {center, zoom, rotation, minZoom, maxZoom})=> {
+const updateView = (view, { center, zoom, rotation, minZoom, maxZoom }) => {
   view.setCenter(center);
 
   if (view.getZoom() !== zoom) {
@@ -27,8 +26,14 @@ const updateView = (view, {center, zoom, rotation, minZoom, maxZoom})=> {
 };
 
 const createView = ({
-  center, zoom, rotation, minZoom, maxZoom, projection, extent
-})=> (
+  center,
+  zoom,
+  rotation,
+  minZoom,
+  maxZoom,
+  projection,
+  extent,
+}) =>
   new OlView({
     center,
     zoom,
@@ -36,16 +41,14 @@ const createView = ({
     maxZoom,
     rotation,
     projection,
-    extent: extent || (projection && projection.getExtent())
-  })
-);
+    extent: extent || (projection && projection.getExtent()),
+  });
 
-const hasProjectionChanged = (view, newProj)=> {
+const hasProjectionChanged = (view, newProj) => {
   const oldProj = view && view.getProjection();
 
   return oldProj !== newProj;
 };
-
 
 @consumer(MapCtx)
 class View extends React.PureComponent {
@@ -57,7 +60,7 @@ class View extends React.PureComponent {
     minZoom: PropTypes.number,
     maxZoom: PropTypes.number,
     rotation: PropTypes.number,
-    onPropertyChange: PropTypes.func
+    onPropertyChange: PropTypes.func,
   };
 
   constructor(props) {
@@ -70,8 +73,8 @@ class View extends React.PureComponent {
   }
 
   syncView() {
-    const {props, view} = this;
-    const {map, projection} = props;
+    const { props, view } = this;
+    const { map, projection } = props;
 
     if (view && !hasProjectionChanged(view, projection)) {
       updateView(view, props);
@@ -82,13 +85,10 @@ class View extends React.PureComponent {
   }
 
   render() {
-    const {onPropertyChange} = this.props;
+    const { onPropertyChange } = this.props;
 
     return (
-      <EventHandler
-        target={this.view}
-        propertychange={onPropertyChange}
-      />
+      <EventHandler target={this.view} propertychange={onPropertyChange} />
     );
   }
 }

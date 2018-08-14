@@ -1,11 +1,9 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 import OlLayerGroup from 'ol/layer/Group';
-import {consumer} from '../hoc';
+import { consumer } from '../hoc';
 
-
-export const LayerGroupCtx = createContext({layerGroup: null});
-
+export const LayerGroupCtx = createContext({ layerGroup: null });
 
 @consumer(LayerGroupCtx)
 class LayerGroup extends React.PureComponent {
@@ -13,36 +11,35 @@ class LayerGroup extends React.PureComponent {
     id: PropTypes.string,
     visible: PropTypes.bool,
     layerGroup: PropTypes.object,
-    children: PropTypes.any
+    children: PropTypes.any,
   };
 
   constructor(props) {
     super(props);
-    this.layerGroup = new OlLayerGroup({id: props.id});
+    this.layerGroup = new OlLayerGroup({ id: props.id });
   }
 
   componentDidMount() {
-    const {layerGroup} = this.props;
+    const { layerGroup } = this.props;
     layerGroup.getLayers().push(this.layerGroup);
   }
 
   componentDidUpdate() {
-    const {layerGroup} = this;
-    const {visible} = this.props;
+    const { layerGroup } = this;
+    const { visible } = this.props;
 
     layerGroup.setVisible(visible);
   }
 
   render() {
-    const {layerGroup, props} = this;
+    const { layerGroup, props } = this;
 
     return (
-      <LayerGroupCtx.Provider value={{layerGroup}}>
+      <LayerGroupCtx.Provider value={{ layerGroup }}>
         {props.children}
       </LayerGroupCtx.Provider>
     );
   }
 }
-
 
 export default LayerGroup;

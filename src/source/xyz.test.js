@@ -1,37 +1,34 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {get as getProjection} from 'ol/proj';
+import { get as getProjection } from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
-import {consumer} from '../hoc';
-import {LayerCtx} from '../layer';
-import {SourceCtx} from '.';
+import { consumer } from '../hoc';
+import { LayerCtx } from '../layer';
+import { SourceCtx } from '.';
 import XYZSource from './xyz';
 
-
-const SourceChild = consumer(SourceCtx)(({source})=> (
+const SourceChild = consumer(SourceCtx)(({ source }) => (
   <source-child source={source} />
 ));
 
+describe('<XYZSource />', () => {
+  const layer = { setSource: jest.fn() };
 
-describe('<XYZSource />', ()=> {
-  const layer = {setSource: jest.fn()};
-
-  it('sets its source on parent layer', ()=> {
+  it('sets its source on parent layer', () => {
     renderer.create(
-      <LayerCtx.Provider value={{layer}}>
+      <LayerCtx.Provider value={{ layer }}>
         <XYZSource />
-      </LayerCtx.Provider>
+      </LayerCtx.Provider>,
     );
 
     expect(layer.setSource).toHaveBeenCalledWith(expect.any(XYZ));
   });
 
-
-  it('provides own source to children via context', ()=> {
+  it('provides own source to children via context', () => {
     const rendered = renderer.create(
       <XYZSource layer={layer}>
         <SourceChild />
-      </XYZSource>
+      </XYZSource>,
     );
 
     const sourceChild = rendered.root.findByType('source-child');
@@ -40,16 +37,13 @@ describe('<XYZSource />', ()=> {
     expect(sourceChild.props.source).toBe(source);
   });
 
-
-  it('creates and sets new source if projection changes', ()=> {
+  it('creates and sets new source if projection changes', () => {
     const projection1 = getProjection('EPSG:3857');
     const projection2 = getProjection('EPSG:4326');
 
-    renderer.create(
-      <XYZSource layer={layer} projection={projection1} />
-    ).update(
-      <XYZSource layer={layer} projection={projection2} />
-    );
+    renderer
+      .create(<XYZSource layer={layer} projection={projection1} />)
+      .update(<XYZSource layer={layer} projection={projection2} />);
 
     const [[source1], [source2]] = layer.setSource.mock.calls;
 
@@ -57,24 +51,20 @@ describe('<XYZSource />', ()=> {
     expect(source2).toBeInstanceOf(XYZ);
   });
 
-
-  it('does not update source if projection is same', ()=> {
+  it('does not update source if projection is same', () => {
     const projection = getProjection('EPSG:3857');
 
-    renderer.create(
-      <XYZSource layer={layer} projection={projection} />
-    ).update(
-      <XYZSource layer={layer} projection={projection} foo='spam' />
-    );
+    renderer
+      .create(<XYZSource layer={layer} projection={projection} />)
+      .update(<XYZSource layer={layer} projection={projection} foo="spam" />);
 
     expect(layer.setSource).toHaveBeenCalledTimes(1);
   });
 
-
-  it('uses tileUrlFunction', ()=> {
+  it('uses tileUrlFunction', () => {
     const tileUrlFunction = jest.fn();
     renderer.create(
-      <XYZSource layer={layer} tileUrlFunction={tileUrlFunction} />
+      <XYZSource layer={layer} tileUrlFunction={tileUrlFunction} />,
     );
     const [[source]] = layer.setSource.mock.calls;
 
@@ -83,11 +73,10 @@ describe('<XYZSource />', ()=> {
     expect(tileUrlFunction).toHaveBeenCalledWith([0, 0], 1);
   });
 
-
-  it('uses tileLoadFunction', ()=> {
+  it('uses tileLoadFunction', () => {
     const tileLoadFunction = jest.fn();
     renderer.create(
-      <XYZSource layer={layer} tileLoadFunction={tileLoadFunction} />
+      <XYZSource layer={layer} tileLoadFunction={tileLoadFunction} />,
     );
     const [[source]] = layer.setSource.mock.calls;
     const tile = {};

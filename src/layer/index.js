@@ -1,4 +1,3 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
 
-
-export const LayerCtx = createContext({layer: null});
+export const LayerCtx = createContext({ layer: null });

@@ -16,7 +16,7 @@
     "start": "echo TODO",
     "build": "echo TODO",
     "test": "run-s -s lint jest",
-    "format": "eslint --fix",
+    "format": "eslint --fix . --ignore-path .gitignore",
     "lint": "run-s -s format lint:*",
     "lint:js": "eslint --report-unused-disable-directives --ignore-path .gitignore .",
     "lint:md": "remark --no-stdout --use remark-lint *.md",
