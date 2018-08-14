@@ -11,10 +11,12 @@
     }
   },
   "plugins": [
+    "prettier",
     "react",
     "babel"
   ],
   "extends":[
+    "prettier",
     "eslint:recommended",
     "plugin:react/recommended"
   ],
@@ -61,6 +63,13 @@
     }
   }],
   "rules": {
+    'prettier/prettier': [ // customizing prettier rules (unfortunately not many of them are customizable)
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'all',
+      },
+    ],
     /* annoying to have to escape  */
     "react/no-unescaped-entities": "off",
     "react/jsx-indent": ["error", 2],

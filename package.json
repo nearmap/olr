@@ -16,7 +16,8 @@
     "start": "echo TODO",
     "build": "echo TODO",
     "test": "run-s -s lint jest",
-    "lint": "run-s -s lint:*",
+    "format": "eslint --fix",
+    "lint": "run-s -s format lint:*",
     "lint:js": "eslint --report-unused-disable-directives --ignore-path .gitignore .",
     "lint:md": "remark --no-stdout --use remark-lint *.md",
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
@@ -45,10 +46,14 @@
     "commitizen": "^2.10.1",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.2.0",
+    "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.5.1",
+    "husky": "^1.0.0-rc.13",
     "jest-cli": "^23.4.2",
     "npm-run-all": "^4.1.2",
+    "prettier": "^1.14.2",
     "prop-types": "^15.6.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -65,6 +70,11 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && git add -A"
     }
   }
 }
