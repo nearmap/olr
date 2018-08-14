@@ -16,7 +16,7 @@
     "start": "echo TODO",
     "build": "run-s build:*",
     "build:pkg": "babel src --out-dir build/pkg --ignore '**/*.test.js'",
-    "build:files": "cp ./package.json build/pkg/ && cp ./README.md build/pkg/",
+    "build:files": "cp ./package.json build/pkg/ && cp ./README.md build/pkg/ && cp ./LICENSE build/pkg/",
     "test": "run-s -s lint jest",
     "lint": "run-s -s lint:*",
     "lint:js": "eslint --report-unused-disable-directives --ignore-path .gitignore .",
