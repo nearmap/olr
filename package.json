@@ -24,6 +24,7 @@
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
     "ci": "run-s -s clean test build",
+    "release": "run-s -s clean build semantic-release",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
