@@ -14,5 +14,6 @@ jobs:
     - stage: test
       script: npm run ci
     - stage: publish
-      if: branch = master
+      if: branch = pre-release
+      script: npm run build
       script: npm run semantic-release

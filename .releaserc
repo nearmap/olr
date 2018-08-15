@@ -1,6 +1,5 @@
 {
-  "branch": "semver",
-  "dryRun": true,
+  "branch": "pre-release",
   "debug": true,
   "pkgRoot": "build/pkg"
 }
