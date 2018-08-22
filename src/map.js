@@ -16,7 +16,6 @@ class Map extends React.PureComponent {
     loadTilesWhileAnimating: PropTypes.bool,
     loadTilesWhileInteracting: PropTypes.bool,
     moveTolerance: PropTypes.number,
-    onChange: PropTypes.func,
     onClick: PropTypes.func,
     onDblClick: PropTypes.func,
     onMoveEnd: PropTypes.func,
@@ -26,6 +25,7 @@ class Map extends React.PureComponent {
     onPostCompose: PropTypes.func,
     onPostRender: PropTypes.func,
     onPreCompose: PropTypes.func,
+    onPropertyChange: PropTypes.func,
     onSingleClick: PropTypes.func,
     children: PropTypes.any
   }
@@ -55,9 +55,9 @@ class Map extends React.PureComponent {
 
     // Events to handle
     const {
-      onChange, onClick, onDblClick, onMoveEnd, onPointerDrag,
+      onClick, onDblClick, onMoveEnd, onPointerDrag,
       onPointerMove, onPostCompose, onPostRender,
-      onPreCompose, onSingleClick
+      onPreCompose, onPropertyChange, onSingleClick
     } = this.props;
 
     const {map, handleOnRef} = this;
@@ -76,7 +76,7 @@ class Map extends React.PureComponent {
             postcompose={onPostCompose}
             postrender={onPostRender}
             precompose={onPreCompose}
-            propertychange={onChange}
+            propertychange={onPropertyChange}
             singleclick={onSingleClick}
           />
           {children}

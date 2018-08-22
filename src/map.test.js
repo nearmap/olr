@@ -227,7 +227,7 @@ describe('<Map /> - events', ()=> {
 
   it('can handle propertychange event', ()=> {
     const testCb = jest.fn(()=> null);
-    render(<Map onChange={testCb} />);
+    render(<Map onPropertyChange={testCb} />);
 
     const map = OlMap.mock.results[0].value;
     map.dispatchEvent('propertychange');
