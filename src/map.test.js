@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import OlMap from 'ol/Map';
 import {consumer} from './hoc';
-import Map, {MapCtx} from './Map';
+import Map, {MapCtx} from './map';
 import {LayerGroupCtx} from './layer/group';
 
 
