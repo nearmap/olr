@@ -16,6 +16,17 @@ class Map extends React.PureComponent {
     loadTilesWhileAnimating: PropTypes.bool,
     loadTilesWhileInteracting: PropTypes.bool,
     moveTolerance: PropTypes.number,
+    onChange: PropTypes.func,
+    onClick: PropTypes.func,
+    onDblClick: PropTypes.func,
+    onMoveEnd: PropTypes.func,
+    onMoveStart: PropTypes.func,
+    onPointerDrag: PropTypes.func,
+    onPointerMove: PropTypes.func,
+    onPostCompose: PropTypes.func,
+    onPostRender: PropTypes.func,
+    onPreCompose: PropTypes.func,
+    onSingleClick: PropTypes.func,
     children: PropTypes.any
   }
 
@@ -41,13 +52,33 @@ class Map extends React.PureComponent {
 
   render() {
     const {children, ...props} = this.props;
+
+    // Events to handle
+    const {
+      onChange, onClick, onDblClick, onMoveEnd, onPointerDrag,
+      onPointerMove, onPostCompose, onPostRender,
+      onPreCompose, onSingleClick
+    } = this.props;
+
     const {map, handleOnRef} = this;
     const layerGroup = map.getLayerGroup();
 
     return (
       <MapCtx.Provider value={{map}}>
         <LayerGroupCtx.Provider value={{layerGroup}}>
-          <EventHandler target={map} />
+          <EventHandler
+            target={map}
+            click={onClick}
+            dblclick={onDblClick}
+            moveend={onMoveEnd}
+            pointerdrag={onPointerDrag}
+            pointermove={onPointerMove}
+            postcompose={onPostCompose}
+            postrender={onPostRender}
+            precompose={onPreCompose}
+            propertychange={onChange}
+            singleclick={onSingleClick}
+          />
           {children}
           <div ref={handleOnRef} {...props} />
         </LayerGroupCtx.Provider>

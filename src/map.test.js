@@ -75,6 +75,7 @@ describe('<Map />', ()=> {
   });
 });
 
+
 describe('<Map /> - initialization', ()=> {
   it('can be initialized with pixelRatio', ()=> {
     render(<Map pixelRatio={1} />).getInstance();
@@ -114,5 +115,133 @@ describe('<Map /> - initialization', ()=> {
     expect(OlMap).toHaveBeenCalledWith(
       expect.objectContaining({moveTolerance: 1})
     );
+  });
+});
+
+
+describe('<Map /> - event handling', ()=> {
+  it('does not register unknown events', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onUnknownEvent={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('propertychange');
+
+    expect(testCb).not.toHaveBeenCalled();
+  });
+
+  it('does not call wrong event', ()=> {
+    const testCb = jest.fn(()=> null);
+    // onDblClick should only respond to the 'dblclick' event
+    // 'click' event is a seperate event
+    render(<Map onDblClick={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('click');
+
+    expect(testCb).not.toHaveBeenCalled();
+  });
+});
+
+
+describe('<Map /> - events', ()=> {
+  it('can handle click event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onClick={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('click');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle dblclick event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onDblClick={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('dblclick');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle moveend event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onMoveEnd={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('moveend');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle pointerdrag event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onPointerDrag={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('pointerdrag');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle pointermove event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onPointerMove={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('pointermove');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle postcompose event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onPostCompose={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('postcompose');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle postrender event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onPostRender={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('postrender');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle precompose event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onPreCompose={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('precompose');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle propertychange event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onChange={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('propertychange');
+
+    expect(testCb).toHaveBeenCalled();
+  });
+
+  it('can handle singleclick event', ()=> {
+    const testCb = jest.fn(()=> null);
+    render(<Map onSingleClick={testCb} />);
+
+    const map = OlMap.mock.results[0].value;
+    map.dispatchEvent('singleclick');
+
+    expect(testCb).toHaveBeenCalled();
   });
 });
