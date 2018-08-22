@@ -26,18 +26,30 @@ const getDefaultInteractions = ()=> interactionDefaults({
 
 class Map extends React.PureComponent {
   static propTypes = {
+    pixelRatio: PropTypes.number,
+    keyboardEventTarget: PropTypes.any,
+    maxTilesLoading: PropTypes.number,
+    loadTilesWhileAnimating: PropTypes.bool,
+    loadTilesWhileInteracting: PropTypes.bool,
+    moveTolerance: PropTypes.number,
     children: PropTypes.any
   }
 
   constructor(props) {
     super(props);
 
+    const {
+      pixelRatio, maxTilesLoading,
+      loadTilesWhileAnimating, loadTilesWhileInteracting,
+      moveTolerance
+    } = props;
+
     this.map = new OlMap({
-      layers: [],
-      loadTilesWhileInteracting: true,
-      loadTilesWhileAnimating: false,
-      controls: [],
-      interactions: getDefaultInteractions()
+      pixelRatio,
+      maxTilesLoading,
+      loadTilesWhileAnimating,
+      loadTilesWhileInteracting,
+      moveTolerance
     });
 
     this.handleOnRef = (elem)=> this.map.setTarget(elem);
