@@ -1,27 +1,11 @@
 import React, {createContext} from 'react';
 import PropTypes from 'prop-types';
 import OlMap from 'ol/Map';
-import OlDragRotate from 'ol/interaction/DragRotate';
-import {defaults as interactionDefaults} from 'ol/interaction';
-import {altKeyOnly} from 'ol/events/condition';
 import {LayerGroupCtx} from './layer/group';
 import EventHandler from './event-handler';
 
 
 export const MapCtx = createContext({viewer: null});
-
-
-/**
- * Return the default interactions that will be used by the map.
- * See: http://openlayers.org/en/latest/apidoc/ol.interaction.html#.defaults
- */
-const getDefaultInteractions = ()=> interactionDefaults({
-  doubleClickZoom: false,
-  altShiftDragRotate: false,
-  shiftDragZoom: false
-}).extend([
-  new OlDragRotate({condition: altKeyOnly})
-]);
 
 
 class Map extends React.PureComponent {
@@ -37,7 +21,7 @@ class Map extends React.PureComponent {
       loadTilesWhileInteracting: true,
       loadTilesWhileAnimating: false,
       controls: [],
-      interactions: getDefaultInteractions()
+      interactions: []
     });
 
     this.handleOnRef = (elem)=> this.map.setTarget(elem);
