@@ -26,13 +26,13 @@ class DefaultInteractions extends React.PureComponent {
 
     const {interactions} = props;
 
-    this.interaction = interactionDefaults({...props});
+    this.interaction = interactionDefaults({...props, interactions: undefined});
     interactions.extend([this.interaction]);
   }
 
   componentDidUpdate() {
     const {props} = this;
-    this.interaction = interactionDefaults({...props});
+    this.interaction = interactionDefaults({...props, interactions: undefined});
   }
 
   render() {

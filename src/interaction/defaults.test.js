@@ -30,20 +30,18 @@ describe('<DefaultInteractions />', ()=> {
       />
     );
 
-    expect(interactionDefaults).toHaveBeenCalledWith(
-      expect.objectContaining({
-        altShiftDragRotate: true,
-        constrainResolution: true,
-        doubleClickZoom: true,
-        keyboard: true,
-        mouseWheelZoom: true,
-        shiftDragZoom: true,
-        dragPan: true,
-        pinchRotate: true,
-        zoomDelta: 1,
-        zoomDuration: 1
-      })
-    );
+    expect(interactionDefaults).toHaveBeenCalledWith({
+      altShiftDragRotate: true,
+      constrainResolution: true,
+      doubleClickZoom: true,
+      keyboard: true,
+      mouseWheelZoom: true,
+      shiftDragZoom: true,
+      dragPan: true,
+      pinchRotate: true,
+      zoomDelta: 1,
+      zoomDuration: 1
+    });
     expect(interactions.getArray().length).toBe(1);
   });
 
@@ -81,20 +79,18 @@ describe('<DefaultInteractions />', ()=> {
       />
     );
 
-    expect(interactionDefaults.mock.calls[1][0]).toEqual(
-      expect.objectContaining({
-        altShiftDragRotate: false,
-        constrainResolution: false,
-        doubleClickZoom: false,
-        keyboard: false,
-        mouseWheelZoom: false,
-        shiftDragZoom: false,
-        dragPan: false,
-        pinchRotate: false,
-        zoomDelta: 2,
-        zoomDuration: 2
-      })
-    );
+    expect(interactionDefaults).toHaveBeenLastCalledWith({
+      altShiftDragRotate: false,
+      constrainResolution: false,
+      doubleClickZoom: false,
+      keyboard: false,
+      mouseWheelZoom: false,
+      shiftDragZoom: false,
+      dragPan: false,
+      pinchRotate: false,
+      zoomDelta: 2,
+      zoomDuration: 2
+    });
     expect(interactions.getArray().length).toBe(1);
   });
 });
