@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import OlMap from 'ol/Map';
+import EventHandler from './event-handler';
 import {consumer} from './hoc';
 import Map, {MapCtx} from './map';
 import {LayerGroupCtx} from './layer/group';
@@ -141,107 +142,171 @@ describe('<Map /> - event handling', ()=> {
 
     expect(testCb).not.toHaveBeenCalled();
   });
+
+  // eslint-disable-next-line max-statements
+  it('maps listener props to event handler props', ()=> {
+    const onChangeSize = jest.fn();
+    const onClick = jest.fn();
+    const onDblClick = jest.fn();
+    const onMoveEnd = jest.fn();
+    const onPointerDrag = jest.fn();
+    const onPointerMove = jest.fn();
+    const onPostCompose = jest.fn();
+    const onPostRender = jest.fn();
+    const onPreCompose = jest.fn();
+    const onPropertyChange = jest.fn();
+    const onSingleClick = jest.fn();
+
+    const handler = render(
+      <Map
+        onChangeSize={onChangeSize}
+        onClick={onClick}
+        onDblClick={onDblClick}
+        onMoveEnd={onMoveEnd}
+        onPointerDrag={onPointerDrag}
+        onPointerMove={onPointerMove}
+        onPostCompose={onPostCompose}
+        onPostRender={onPostRender}
+        onPreCompose={onPreCompose}
+        onPropertyChange={onPropertyChange}
+        onSingleClick={onSingleClick}
+      />
+    ).root.findByType(EventHandler);
+
+    expect(handler.props).toEqual(
+      expect.objectContaining({
+        click: onClick,
+        'change:size': onChangeSize,
+        dblclick: onDblClick,
+        moveend: onMoveEnd,
+        pointerdrag: onPointerDrag,
+        pointermove: onPointerMove,
+        postcompose: onPostCompose,
+        postrender: onPostRender,
+        precompose: onPreCompose,
+        propertychange: onPropertyChange,
+        singleclick: onSingleClick
+      })
+    );
+  });
 });
 
 
+// eslint-disable-next-line max-statements
 describe('<Map /> - events', ()=> {
+  const testCb = jest.fn();
+  const getRenderedMap = (cmp)=> {
+    render(cmp);
+    return OlMap.mock.results[0].value;
+  };
+
   it('can handle click event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onClick={testCb} />);
+    const evt = {type: 'click'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('click');
+    getRenderedMap(
+      <Map onClick={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle dblclick event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onDblClick={testCb} />);
+    const evt = {type: 'dblclick'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('dblclick');
+    getRenderedMap(
+      <Map onDblClick={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle moveend event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onMoveEnd={testCb} />);
+    const evt = {type: 'moveend'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('moveend');
+    getRenderedMap(
+      <Map onMoveEnd={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle pointerdrag event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPointerDrag={testCb} />);
+    const evt = {type: 'pointerdrag'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('pointerdrag');
+    getRenderedMap(
+      <Map onPointerDrag={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle pointermove event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPointerMove={testCb} />);
+    const evt = {type: 'pointermove'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('pointermove');
+    getRenderedMap(
+      <Map onPointerMove={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle postcompose event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPostCompose={testCb} />);
+    const evt = {type: 'postcompose'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('postcompose');
+    getRenderedMap(
+      <Map onPostCompose={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle postrender event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPostRender={testCb} />);
+    const evt = {type: 'postrender'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('postrender');
+    getRenderedMap(
+      <Map onPostRender={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle precompose event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPreCompose={testCb} />);
+    const evt = {type: 'precompose'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('precompose');
+    getRenderedMap(
+      <Map onPreCompose={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle propertychange event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onPropertyChange={testCb} />);
+    const evt = {type: 'propertychange'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('propertychange');
+    getRenderedMap(
+      <Map onPropertyChange={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 
   it('can handle singleclick event', ()=> {
-    const testCb = jest.fn(()=> null);
-    render(<Map onSingleClick={testCb} />);
+    const evt = {type: 'singleclick'};
 
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('singleclick');
+    getRenderedMap(
+      <Map onSingleClick={testCb} />
+    ).dispatchEvent(evt);
 
-    expect(testCb).toHaveBeenCalled();
+    expect(testCb).toHaveBeenCalledWith(evt);
+  });
+
+  it('can handle change:size event', ()=> {
+    const evt = {type: 'change:size'};
+
+    getRenderedMap(
+      <Map onChangeSize={testCb} />
+    ).dispatchEvent(evt);
+
+    expect(testCb).toHaveBeenCalledWith(evt);
   });
 });

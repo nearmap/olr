@@ -18,6 +18,7 @@ class Map extends React.PureComponent {
     moveTolerance: PropTypes.number,
     onClick: PropTypes.func,
     onDblClick: PropTypes.func,
+    onMapResize: PropTypes.func,
     onMoveEnd: PropTypes.func,
     onMoveStart: PropTypes.func,
     onPointerDrag: PropTypes.func,
@@ -55,7 +56,7 @@ class Map extends React.PureComponent {
 
     // Events to handle
     const {
-      onClick, onDblClick, onMoveEnd, onPointerDrag,
+      onChangeSize, onClick, onDblClick, onMoveEnd, onPointerDrag,
       onPointerMove, onPostCompose, onPostRender,
       onPreCompose, onPropertyChange, onSingleClick
     } = this.props;
@@ -68,6 +69,7 @@ class Map extends React.PureComponent {
         <LayerGroupCtx.Provider value={{layerGroup}}>
           <EventHandler
             target={map}
+            {...{'change:size': onChangeSize}}
             click={onClick}
             dblclick={onDblClick}
             moveend={onMoveEnd}
