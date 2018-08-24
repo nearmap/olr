@@ -11,13 +11,25 @@ import {SourceCtx} from '.';
 class XYZSource extends React.PureComponent {
   static propTypes = {
     layer: PropTypes.object,
-    tileSize: PropTypes.array,
-    tileGrid: PropTypes.object,
+    refreshKey: PropTypes.string,
+
+    attributions: PropTypes.object,
+    cacheSize: PropTypes.number,
+    crossOrigin: PropTypes.string,
+    opaque: PropTypes.bool,
     projection: PropTypes.object,
+    reprojectionErrorThreshold: PropTypes.number,
+    maxZoom: PropTypes.number,
+    minZoom: PropTypes.number,
+    tileGrid: PropTypes.object,
+    tileLoadFunction: PropTypes.func,
+    tilePixelRatio: PropTypes.number,
+    tileUrlFunction: PropTypes.func,
+    tileSize: PropTypes.array,
     url: PropTypes.string,
     urls: PropTypes.array,
-    tileUrlFunction: PropTypes.func,
-    tileLoadFunction: PropTypes.func
+    wrapX: PropTypes.bool,
+    transition: PropTypes.number
   };
 
 
@@ -25,18 +37,15 @@ class XYZSource extends React.PureComponent {
     super(props);
     this.generateSource();
     this.syncTileFuncs();
+
+    this.refreshKey = props.refreshKey;
   }
 
   generateSource() {
-    const {layer, tileSize, tileGrid, url, urls, projection} = this.props;
+    const {props} = this;
+    const {layer} = props;
 
-    this.source = new XYZ({
-      tileSize,
-      tileGrid,
-      projection,
-      url,
-      urls
-    });
+    this.source = new XYZ({...props, layer: undefined});
     layer.setSource(this.source);
   }
 
@@ -73,7 +82,13 @@ class XYZSource extends React.PureComponent {
   }
 
   componentDidUpdate() {
+    const {refreshKey} = this.props;
     this.syncProps();
+
+    if (refreshKey !== undefined && this.refreshKey !== refreshKey) {
+      this.refreshKey = refreshKey;
+      this.source.refresh();
+    }
   }
 
   render() {
