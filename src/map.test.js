@@ -81,33 +81,33 @@ describe('<Map /> - initialization', ()=> {
   it('can be initialized with pixelRatio', ()=> {
     render(<Map pixelRatio={1} />).getInstance();
 
-    const map = OlMap.mock.results[0].value;
-
-    expect(map.pixelRatio_).toBe(1);
+    expect(OlMap).toHaveBeenCalledWith(
+      expect.objectContaining({pixelRatio: 1})
+    );
   });
 
   it('can be initialized with maxTilesLoading', ()=> {
     render(<Map maxTilesLoading={1} />);
 
-    const map = OlMap.mock.results[0].value;
-
-    expect(map.maxTilesLoading_).toBe(1);
+    expect(OlMap).toHaveBeenCalledWith(
+      expect.objectContaining({maxTilesLoading: 1})
+    );
   });
 
   it('can be initialized with loadTilesWhileAnimating', ()=> {
     render(<Map loadTilesWhileAnimating={false} />);
 
-    const map = OlMap.mock.results[0].value;
-
-    expect(map.loadTilesWhileAnimating_).toBe(false);
+    expect(OlMap).toHaveBeenCalledWith(
+      expect.objectContaining({loadTilesWhileAnimating: false})
+    );
   });
 
   it('can be initialized with loadTilesWhileInteracting', ()=> {
     render(<Map loadTilesWhileInteracting={false} />);
 
-    const map = OlMap.mock.results[0].value;
-
-    expect(map.loadTilesWhileInteracting_).toBe(false);
+    expect(OlMap).toHaveBeenCalledWith(
+      expect.objectContaining({loadTilesWhileInteracting: false})
+    );
   });
 
   it('can be initialized with moveTolerance', ()=> {
@@ -127,18 +127,6 @@ describe('<Map /> - event handling', ()=> {
 
     const map = OlMap.mock.results[0].value;
     map.dispatchEvent('propertychange');
-
-    expect(testCb).not.toHaveBeenCalled();
-  });
-
-  it('does not call wrong event', ()=> {
-    const testCb = jest.fn(()=> null);
-    // onDblClick should only respond to the 'dblclick' event
-    // 'click' event is a seperate event
-    render(<Map onDblClick={testCb} />);
-
-    const map = OlMap.mock.results[0].value;
-    map.dispatchEvent('click');
 
     expect(testCb).not.toHaveBeenCalled();
   });

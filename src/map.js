@@ -17,6 +17,7 @@ class Map extends React.PureComponent {
     loadTilesWhileInteracting: PropTypes.bool,
     moveTolerance: PropTypes.number,
     onClick: PropTypes.func,
+    onChangeSize: PropTypes.func,
     onDblClick: PropTypes.func,
     onMapResize: PropTypes.func,
     onMoveEnd: PropTypes.func,
@@ -35,9 +36,8 @@ class Map extends React.PureComponent {
     super(props);
 
     const {
-      pixelRatio, maxTilesLoading,
-      loadTilesWhileAnimating, loadTilesWhileInteracting,
-      moveTolerance
+      pixelRatio, maxTilesLoading, moveTolerance,
+      loadTilesWhileAnimating, loadTilesWhileInteracting
     } = props;
 
     this.map = new OlMap({
@@ -52,13 +52,10 @@ class Map extends React.PureComponent {
   }
 
   render() {
-    const {children, ...props} = this.props;
-
-    // Events to handle
     const {
-      onChangeSize, onClick, onDblClick, onMoveEnd, onPointerDrag,
-      onPointerMove, onPostCompose, onPostRender,
-      onPreCompose, onPropertyChange, onSingleClick
+      children, onChangeSize, onClick, onDblClick, onMoveEnd, onPointerDrag,
+      onPointerMove, onPostCompose, onPostRender, onPreCompose,
+      onPropertyChange, onSingleClick, ...props
     } = this.props;
 
     const {map, handleOnRef} = this;
