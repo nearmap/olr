@@ -5,7 +5,7 @@ import {LayerGroupCtx} from './layer/group';
 import EventHandler from './event-handler';
 
 
-export const MapCtx = createContext({viewer: null});
+export const MapCtx = createContext({map: null});
 
 
 class Map extends React.PureComponent {
