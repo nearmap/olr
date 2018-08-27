@@ -10,9 +10,11 @@ import {SourceCtx} from '.';
 @consumer(LayerCtx)
 class XYZSource extends React.PureComponent {
   static propTypes = {
+    // Context
     layer: PropTypes.object,
+    // Custom
     refreshKey: PropTypes.string,
-
+    // OpenLayers
     attributions: PropTypes.object,
     cacheSize: PropTypes.number,
     crossOrigin: PropTypes.string,
@@ -45,7 +47,9 @@ class XYZSource extends React.PureComponent {
     const {props} = this;
     const {layer} = props;
 
-    this.source = new XYZ({...props, layer: undefined});
+    this.source = new XYZ({
+      ...props, layer: undefined, refreshKey: undefined
+    });
     layer.setSource(this.source);
   }
 
@@ -93,10 +97,11 @@ class XYZSource extends React.PureComponent {
 
   render() {
     const {source, props} = this;
+    const {children} = props;
 
     return (
       <SourceCtx.Provider value={{source}}>
-        {props.children}
+        {children}
       </SourceCtx.Provider>
     );
   }
