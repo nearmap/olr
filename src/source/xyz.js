@@ -45,10 +45,18 @@ class XYZSource extends React.PureComponent {
 
   generateSource() {
     const {props} = this;
-    const {layer} = props;
+    const {
+      layer, attributions, cacheSize, crossOrigin, opaque,
+      projection, reprojectionErrorThreshold, maxZoom, minZoom,
+      tileGrid, tileLoadFunction, tilePixelRatio, tileUrlFunction,
+      tileSize, url, urls, wrapX, transition
+    } = props;
 
     this.source = new XYZ({
-      ...props, layer: undefined, refreshKey: undefined
+      attributions, cacheSize, crossOrigin, opaque,
+      projection, reprojectionErrorThreshold, maxZoom, minZoom,
+      tileGrid, tileLoadFunction, tilePixelRatio, tileUrlFunction,
+      tileSize, url, urls, wrapX, transition
     });
     layer.setSource(this.source);
   }
