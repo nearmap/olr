@@ -6,7 +6,10 @@ import DefaultInteractions from './defaults';
 
 
 jest.mock('ol/interaction', ()=> ({
-  defaults: jest.fn(()=> 'test-interaction')
+  defaults: jest.fn((...args)=> {
+    const RealDefaults = require.requireActual('ol/interaction').defaults;
+    return new RealDefaults(...args);
+  })
 }));
 
 
@@ -25,6 +28,7 @@ describe('<DefaultInteractions />', ()=> {
         shiftDragZoom={true}
         dragPan={true}
         pinchRotate={true}
+        pinchZoom={true}
         zoomDelta={1}
         zoomDuration={1}
       />
@@ -39,15 +43,16 @@ describe('<DefaultInteractions />', ()=> {
       shiftDragZoom: true,
       dragPan: true,
       pinchRotate: true,
+      pinchZoom: true,
       zoomDelta: 1,
       zoomDuration: 1
     });
-    expect(interactions.getArray().length).toBe(1);
+    expect(interactions.getArray().length).toBe(9);
   });
 
   it('can update its props and the interaction will be updated', ()=> {
     const interactions = new OlCollection();
-    renderer.create(
+    const rendered = renderer.create(
       <DefaultInteractions
         interactions={interactions}
 
@@ -59,10 +64,15 @@ describe('<DefaultInteractions />', ()=> {
         shiftDragZoom={true}
         dragPan={true}
         pinchRotate={true}
+        pinchZoom={true}
         zoomDelta={1}
         zoomDuration={1}
       />
-    ).update(
+    );
+
+    expect(interactions.getArray().length).toBe(9);
+
+    rendered.update(
       <DefaultInteractions
         interactions={interactions}
 
@@ -73,6 +83,7 @@ describe('<DefaultInteractions />', ()=> {
         mouseWheelZoom={false}
         shiftDragZoom={false}
         dragPan={false}
+        pinchZoom={false}
         pinchRotate={false}
         zoomDelta={2}
         zoomDuration={2}
@@ -88,9 +99,10 @@ describe('<DefaultInteractions />', ()=> {
       shiftDragZoom: false,
       dragPan: false,
       pinchRotate: false,
+      pinchZoom: false,
       zoomDelta: 2,
       zoomDuration: 2
     });
-    expect(interactions.getArray().length).toBe(1);
+    expect(interactions.getArray().length).toBe(0);
   });
 });

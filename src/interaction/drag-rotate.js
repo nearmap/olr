@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OlDragRotate from 'ol/interaction/DragRotate';
 import {consumer} from '../hoc';
-import {InteractionCtx} from '../interactions';
+import {InteractionCtx} from '.';
 
 
 @consumer(InteractionCtx)
@@ -22,11 +22,13 @@ class DragRotateInteraction extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {condition} = this.props;
-    this.interaction = new OlDragRotate({condition});
+    const {condition, interactions} = this.props;
+    const newInteraction = new OlDragRotate({condition});
 
-    // Do I need to find the interaction and delete it, or
-    // is its reference to this being changed enough?
+    interactions.remove(this.interaction);
+    interactions.extend([newInteraction]);
+
+    this.interaction = newInteraction;
   }
 
   render() {

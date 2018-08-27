@@ -1,7 +1,7 @@
 import React, {createContext} from 'react';
 import PropTypes from 'prop-types';
-import {consumer} from './hoc';
-import {MapCtx} from './map';
+import {consumer} from '../hoc';
+import {MapCtx} from '../map';
 
 
 export const InteractionCtx = createContext({interactions: null});

@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PropTypes from 'prop-types';
-import {consumer} from './hoc';
+import {consumer} from '../hoc';
 import OlCollection from 'ol/Collection';
-import Map from './map';
-import Interactions from './interactions';
-import {InteractionCtx} from './interactions';
+import Map from '../map';
+import Interactions from '.';
+import {InteractionCtx} from '.';
 
 
 const render = (component, div=null)=> renderer.create(
@@ -33,7 +33,7 @@ class InteractionsChild extends React.Component {
 }
 
 
-describe('<Interactions>', ()=> {
+describe('<Interactions />', ()=> {
   it('provides an ol/Interactions collection object via context', ()=> {
     const interactionsChild = render(
       <Map>
