@@ -43,7 +43,7 @@ class Map extends React.PureComponent {
     this.map = new OlMap({
       layers: [],
       controls: [],
-      interactions: []
+      interactions: [],
       pixelRatio,
       maxTilesLoading,
       loadTilesWhileAnimating,
