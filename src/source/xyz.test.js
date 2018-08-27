@@ -103,11 +103,12 @@ describe('<XYZSource />', ()=> {
 
 
   it('uses tileUrlFunction', ()=> {
+    const layer = new OlTileLayer();
     const tileUrlFunction = jest.fn();
     renderer.create(
       <XYZSource layer={layer} tileUrlFunction={tileUrlFunction} />
     );
-    const [[source]] = layer.setSource.mock.calls;
+    const source = layer.getSource();
 
     source.getTileUrlFunction()([0, 0], 1);
 
@@ -116,15 +117,90 @@ describe('<XYZSource />', ()=> {
 
 
   it('uses tileLoadFunction', ()=> {
+    const layer = new OlTileLayer();
     const tileLoadFunction = jest.fn();
     renderer.create(
       <XYZSource layer={layer} tileLoadFunction={tileLoadFunction} />
     );
-    const [[source]] = layer.setSource.mock.calls;
+    const source = layer.getSource();
     const tile = {};
 
     source.getTileLoadFunction()(tile, 'tile-url');
 
     expect(tileLoadFunction).toHaveBeenCalledWith(tile, 'tile-url');
+  });
+});
+
+
+describe('<XYZSource /> - source initialization', ()=> {
+  // eslint-disable-next-line max-statements
+  it('passes props to source initialization', ()=> {
+    const attributions = {};
+    const cacheSize = 1;
+    const crossOrigin = 'test-origin';
+    const opaque = true;
+    const projection = {};
+    const reprojectionErrorThreshold = 2;
+    const maxZoom = 3;
+    const minZoom = 4;
+    const tileGrid = {};
+    const tileLoadFunction = jest.fn();
+    const tilePixelRatio = 5;
+    const tileUrlFunction = jest.fn();
+    const tileSize = [];
+    const url = 'test-url.com';
+    const urls = ['test-url.com'];
+    const wrapX = false;
+    const transition = 6;
+
+    const layer = new OlTileLayer();
+    renderer.create(
+      <XYZSource
+        layer={layer}
+        attributions={attributions}
+        cacheSize={cacheSize}
+        crossOrigin={crossOrigin}
+        opaque={opaque}
+        projection={projection}
+        reprojectionErrorThreshold={reprojectionErrorThreshold}
+        maxZoom={maxZoom}
+        minZoom={minZoom}
+        tileGrid={tileGrid}
+        tileLoadFunction={tileLoadFunction}
+        tilePixelRatio={tilePixelRatio}
+        tileUrlFunction={tileUrlFunction}
+        tileSize={tileSize}
+        url={url}
+        urls={urls}
+        wrapX={wrapX}
+        transition={transition}
+      />
+    );
+
+    expect(XYZ).toHaveBeenCalledWith({
+      attributions, cacheSize, crossOrigin, opaque,
+      projection, reprojectionErrorThreshold, maxZoom, minZoom,
+      tileGrid, tileLoadFunction, tilePixelRatio, tileUrlFunction,
+      tileSize, url, urls, wrapX, transition
+    });
+  });
+});
+
+
+describe('<XYZSource /> - refresh key', ()=> {
+  it('can be refreshed by changing the refresh key', ()=> {
+    const layer = new OlTileLayer();
+    const projection = getProjection('EPSG:3857');
+    const rendered = renderer.create(
+      <XYZSource layer={layer} projection={projection} refreshKey={undefined} />
+    );
+
+    const spy = jest.spyOn(layer.getSource(), 'refresh');
+
+    rendered.update(
+      <XYZSource layer={layer} projection={projection} refreshKey={'test'} />
+    );
+
+    expect(spy).toHaveBeenCalled();
   });
 });

@@ -89,7 +89,7 @@ class XYZSource extends React.PureComponent {
     const {refreshKey} = this.props;
     this.syncProps();
 
-    if (refreshKey !== undefined && this.refreshKey !== refreshKey) {
+    if (this.refreshKey !== refreshKey) {
       this.refreshKey = refreshKey;
       this.source.refresh();
     }
