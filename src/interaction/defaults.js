@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {defaults as interactionDefaults} from 'ol/interaction';
-import {consumer} from '../hoc';
-import {InteractionCtx} from '.';
+import Kinetic from 'ol/Kinetic';
+import DragRotate from './DragRotate';
+import DoubleClickZoom from './DoubleClickZoom';
+import DragPan from './DragPan';
+import PinchRotate from './PinchRotate';
+import PinchZoom from './PinchZoom';
+import KeyboardPan from './KeyboardPan';
+import KeyboardZoom from './KeyboardZoom';
+import MouseWheelZoom from './MouseWheelZoom';
+import DragZoom from './DragZoom';
 
 
-@consumer(InteractionCtx)
-class DefaultInteractions extends React.PureComponent {
+class Defaults extends React.PureComponent {
   static propTypes = {
+    // Context
     interactions: PropTypes.object,
+
+    // OpenLayers
     altShiftDragRotate: PropTypes.bool,
     constrainResolution: PropTypes.bool,
     doubleClickZoom: PropTypes.bool,
@@ -22,49 +31,51 @@ class DefaultInteractions extends React.PureComponent {
     zoomDuration: PropTypes.number
   }
 
-  constructor(props) {
-    super(props);
-
-    const {
-      interactions, altShiftDragRotate, constrainResolution,
-      doubleClickZoom, keyboard, mouseWheelZoom, shiftDragZoom,
-      dragPan, pinchRotate, pinchZoom, zoomDelta, zoomDuration
-    } = props;
-
-    this.interaction = interactionDefaults({
-      altShiftDragRotate, constrainResolution,
-      doubleClickZoom, keyboard, mouseWheelZoom, shiftDragZoom,
-      dragPan, pinchRotate, pinchZoom, zoomDelta, zoomDuration
-    });
-
-    interactions.extend(this.interaction.getArray());
-  }
-
-  componentDidUpdate() {
+  // eslint-disable-next-line complexity
+  render() {
     const {props} = this;
     const {
-      interactions, altShiftDragRotate, constrainResolution,
+      altShiftDragRotate, constrainResolution,
       doubleClickZoom, keyboard, mouseWheelZoom, shiftDragZoom,
       dragPan, pinchRotate, pinchZoom, zoomDelta, zoomDuration
     } = props;
 
-    const newDefaults = interactionDefaults({
-      altShiftDragRotate, constrainResolution,
-      doubleClickZoom, keyboard, mouseWheelZoom, shiftDragZoom,
-      dragPan, pinchRotate, pinchZoom, zoomDelta, zoomDuration
-    });
+    // eslint-disable-next-line no-magic-numbers
+    const kinetic = new Kinetic(-0.005, 0.05, 100);
 
-    for (const interaction of this.interaction.getArray()) {
-      interactions.remove(interaction);
-    }
-
-    interactions.extend(newDefaults.getArray());
-    this.interaction = newDefaults;
-  }
-
-  render() {
-    return null;
+    return (
+      <Fragment>
+        <DragRotate active={altShiftDragRotate || false} />
+        <DoubleClickZoom
+          active={doubleClickZoom || false}
+          delta={zoomDelta}
+          duration={zoomDuration}
+        />
+        <DragPan active={dragPan || false} kinetic={kinetic} />
+        <PinchRotate active={pinchRotate || false} />
+        <PinchZoom
+          active={pinchZoom || false}
+          constrainResolution={constrainResolution}
+          duration={zoomDuration}
+        />
+        <KeyboardPan active={keyboard || false} />
+        <KeyboardZoom
+          active={keyboard || false}
+          delta={zoomDelta}
+          duration={zoomDuration}
+        />
+        <MouseWheelZoom
+          active={mouseWheelZoom || false}
+          constrainResolution={constrainResolution}
+          duration={zoomDuration}
+        />
+        <DragZoom
+          active={shiftDragZoom || false}
+          duration={zoomDuration}
+        />
+      </Fragment>
+    );
   }
 }
 
-export default DefaultInteractions;
+export default Defaults;
