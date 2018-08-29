@@ -44,6 +44,10 @@ class PinchRotate extends React.PureComponent {
     this.interaction = newInteraction;
   }
 
+  componentWillUnmount() {
+    this.interaction.setActive(false);
+  }
+
   render() {
     return null;
   }
