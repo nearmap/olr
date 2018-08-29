@@ -185,26 +185,3 @@ describe('<XYZSource /> - source initialization', ()=> {
     });
   });
 });
-
-
-describe('<XYZSource /> - refresh key', ()=> {
-  it('can be refreshed by changing the refresh key', ()=> {
-    const layer = new OlTileLayer();
-    const projection = getProjection('EPSG:3857');
-    const rendered = renderer.create(
-      <XYZSource
-        layer={layer} projection={projection} refreshKey={'first-key'}
-      />
-    );
-
-    const spy = jest.spyOn(layer.getSource(), 'refresh');
-
-    rendered.update(
-      <XYZSource
-        layer={layer} projection={projection} refreshKey={'second-key'}
-      />
-    );
-
-    expect(spy).toHaveBeenCalled();
-  });
-});

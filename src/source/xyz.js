@@ -12,8 +12,7 @@ class XYZSource extends React.PureComponent {
   static propTypes = {
     // Context
     layer: PropTypes.object,
-    // Custom
-    refreshKey: PropTypes.string,
+
     // OpenLayers
     attributions: PropTypes.object,
     cacheSize: PropTypes.number,
@@ -39,8 +38,6 @@ class XYZSource extends React.PureComponent {
     super(props);
     this.generateSource();
     this.syncTileFuncs();
-
-    this.refreshKey = props.refreshKey;
   }
 
   generateSource() {
@@ -94,13 +91,7 @@ class XYZSource extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {refreshKey} = this.props;
     this.syncProps();
-
-    if (this.refreshKey !== refreshKey) {
-      this.refreshKey = refreshKey;
-      this.source.refresh();
-    }
   }
 
   render() {
