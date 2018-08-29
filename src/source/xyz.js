@@ -10,14 +10,27 @@ import {SourceCtx} from '.';
 @consumer(LayerCtx)
 class XYZSource extends React.PureComponent {
   static propTypes = {
+    // Context
     layer: PropTypes.object,
-    tileSize: PropTypes.array,
-    tileGrid: PropTypes.object,
+
+    // OpenLayers
+    attributions: PropTypes.object,
+    cacheSize: PropTypes.number,
+    crossOrigin: PropTypes.string,
+    opaque: PropTypes.bool,
     projection: PropTypes.object,
+    reprojectionErrorThreshold: PropTypes.number,
+    maxZoom: PropTypes.number,
+    minZoom: PropTypes.number,
+    tileGrid: PropTypes.object,
+    tileLoadFunction: PropTypes.func,
+    tilePixelRatio: PropTypes.number,
+    tileUrlFunction: PropTypes.func,
+    tileSize: PropTypes.array,
     url: PropTypes.string,
     urls: PropTypes.array,
-    tileUrlFunction: PropTypes.func,
-    tileLoadFunction: PropTypes.func
+    wrapX: PropTypes.bool,
+    transition: PropTypes.number
   };
 
 
@@ -28,14 +41,19 @@ class XYZSource extends React.PureComponent {
   }
 
   generateSource() {
-    const {layer, tileSize, tileGrid, url, urls, projection} = this.props;
+    const {props} = this;
+    const {
+      layer, attributions, cacheSize, crossOrigin, opaque,
+      projection, reprojectionErrorThreshold, maxZoom, minZoom,
+      tileGrid, tileLoadFunction, tilePixelRatio, tileUrlFunction,
+      tileSize, url, urls, wrapX, transition
+    } = props;
 
     this.source = new XYZ({
-      tileSize,
-      tileGrid,
-      projection,
-      url,
-      urls
+      attributions, cacheSize, crossOrigin, opaque,
+      projection, reprojectionErrorThreshold, maxZoom, minZoom,
+      tileGrid, tileLoadFunction, tilePixelRatio, tileUrlFunction,
+      tileSize, url, urls, wrapX, transition
     });
     layer.setSource(this.source);
   }
@@ -78,10 +96,11 @@ class XYZSource extends React.PureComponent {
 
   render() {
     const {source, props} = this;
+    const {children} = props;
 
     return (
       <SourceCtx.Provider value={{source}}>
-        {props.children}
+        {children}
       </SourceCtx.Provider>
     );
   }
