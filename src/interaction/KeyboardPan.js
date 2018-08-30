@@ -20,33 +20,48 @@ class KeyboardPan extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
-    const {interactions} = props;
-    const {active, condition, duration, pixelDelta} = props;
+    
+    const {interactions, active, condition, duration, pixelDelta} = props;
     const isActive = active === undefined ? true : active;
 
     this.interaction = new OlKeyboardPan({condition, duration, pixelDelta});
     this.interaction.setActive(isActive);
-    this.index = interactions.push(this.interaction) - 1;
+    interactions.push(this.interaction);
   }
 
-  componentDidUpdate() {
+  replaceInteraction() {
     const {props} = this;
-    const {interactions} = props;
-    const {active, condition, duration, pixelDelta} = props;
-    const isActive = active === undefined ? true : active;
+    const {interactions, condition, duration, pixelDelta} = props;
 
-    const newInteraction = new OlKeyboardPan({condition, duration, pixelDelta});
-    newInteraction.setActive(isActive);
-
-    interactions.removeAt(this.index);
-    interactions.insertAt(this.index, newInteraction);
-
+    const newInteraction = new OlKeyboardPan({
+      condition, duration, pixelDelta
+    });
+    const index = interactions.getArray().indexOf(this.interaction);
+    interactions.remove(this.interaction);
+    interactions.insertAt(index, newInteraction);
     this.interaction = newInteraction;
   }
 
+  componentDidUpdate(previousProps) {
+    const {props} = this;
+    const {active, condition, duration, pixelDelta} = props;
+    const isActive = active === undefined ? true : active;
+
+    if (
+      condition !== previousProps.condition
+      || duration !== previousProps.duration
+      || pixelDelta !== previousProps.pixelDelta
+    ) {
+      this.replaceInteraction();
+    }
+
+    this.interaction.setActive(isActive);
+  }
+
   componentWillUnmount() {
-    this.interaction.setActive(false);
+    const {props} = this;
+    const {interactions} = props;
+    interactions.remove(this.interaction);
   }
 
   render() {

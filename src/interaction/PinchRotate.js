@@ -20,32 +20,44 @@ class PinchRotate extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const {interactions} = props;
-    const {active, duration, threshold} = props;
+    const {interactions, active, duration, threshold} = props;
     const isActive = active === undefined ? true : active;
 
     this.interaction = new OlPinchRotate({duration, threshold});
     this.interaction.setActive(isActive);
-    this.index = interactions.push(this.interaction) - 1;
+    interactions.push(this.interaction);
   }
 
-  componentDidUpdate() {
+  replaceInteraction() {
     const {props} = this;
-    const {interactions} = props;
-    const {active, duration, threshold} = props;
-    const isActive = active === undefined ? true : active;
+    const {interactions, duration, threshold} = props;
 
     const newInteraction = new OlPinchRotate({duration, threshold});
-    newInteraction.setActive(isActive);
-
-    interactions.removeAt(this.index);
-    interactions.insertAt(this.index, newInteraction);
-
+    const index = interactions.getArray().indexOf(this.interaction);
+    interactions.remove(this.interaction);
+    interactions.insertAt(index, newInteraction);
     this.interaction = newInteraction;
   }
 
+  componentDidUpdate(previousProps) {
+    const {props} = this;
+    const {active, duration, threshold} = props;
+    const isActive = active === undefined ? true : active;
+
+    if (
+      duration !== previousProps.duration
+      || threshold !== previousProps.threshold
+    ) {
+      this.replaceInteraction();
+    }
+
+    this.interaction.setActive(isActive);
+  }
+
   componentWillUnmount() {
-    this.interaction.setActive(false);
+    const {props} = this;
+    const {interactions} = props;
+    interactions.remove(this.interaction);
   }
 
   render() {

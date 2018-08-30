@@ -20,32 +20,41 @@ class DoubleClickZoom extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const {interactions} = props;
-    const {active, delta, duration} = props;
+    const {interactions, active, delta, duration} = props;
     const isActive = active === undefined ? true : active;
 
     this.interaction = new OlDoubleClickZoom({delta, duration});
     this.interaction.setActive(isActive);
-    this.index = interactions.push(this.interaction) - 1;
+    interactions.push(this.interaction);
   }
 
-  componentDidUpdate() {
+  replaceInteraction() {
     const {props} = this;
-    const {interactions} = props;
-    const {active, delta, duration} = props;
-    const isActive = active === undefined ? true : active;
+    const {interactions, delta, duration} = props;
 
     const newInteraction = new OlDoubleClickZoom({delta, duration});
-    newInteraction.setActive(isActive);
-
-    interactions.removeAt(this.index);
-    interactions.insertAt(this.index, newInteraction);
-
+    const index = interactions.getArray().indexOf(this.interaction);
+    interactions.remove(this.interaction);
+    interactions.insertAt(index, newInteraction);
     this.interaction = newInteraction;
   }
 
+  componentDidUpdate(previousProps) {
+    const {props} = this;
+    const {active, delta, duration} = props;
+    const isActive = active === undefined ? true : active;
+
+    if (delta !== previousProps.delta || duration !== previousProps.duration) {
+      this.replaceInteraction();
+    }
+
+    this.interaction.setActive(isActive);
+  }
+
   componentWillUnmount() {
-    this.interaction.setActive(false);
+    const {props} = this;
+    const {interactions} = props;
+    interactions.remove(this.interaction);
   }
 
   render() {

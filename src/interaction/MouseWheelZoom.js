@@ -22,36 +22,52 @@ class MouseWheelZoom extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const {interactions} = props;
-    const {active, condition, duration, timeout, useAnchor} = props;
+    const {
+      interactions, active, condition, duration, timeout, useAnchor
+    } = props;
     const isActive = active === undefined ? true : active;
 
     this.interaction = new OlMouseWheelZoom({
       condition, duration, timeout, useAnchor
     });
     this.interaction.setActive(isActive);
-    this.index = interactions.push(this.interaction) - 1;
+    interactions.push(this.interaction);
   }
 
-  componentDidUpdate() {
+  replaceInteraction() {
     const {props} = this;
-    const {interactions} = props;
-    const {active, condition, duration, timeout, useAnchor} = props;
-    const isActive = active === undefined ? true : active;
+    const {interactions, condition, duration, timeout, useAnchor} = props;
 
     const newInteraction = new OlMouseWheelZoom({
       condition, duration, timeout, useAnchor
     });
-    newInteraction.setActive(isActive);
-
-    interactions.removeAt(this.index);
-    interactions.insertAt(this.index, newInteraction);
-
+    const index = interactions.getArray().indexOf(this.interaction);
+    interactions.remove(this.interaction);
+    interactions.insertAt(index, newInteraction);
     this.interaction = newInteraction;
   }
 
+  componentDidUpdate(previousProps) {
+    const {props} = this;
+    const {active, condition, duration, timeout, useAnchor} = props;
+    const isActive = active === undefined ? true : active;
+
+    if (
+      condition !== previousProps.condition
+      || duration !== previousProps.duration
+      || timeout !== previousProps.timeout
+      || useAnchor !== previousProps.useAnchor
+    ) {
+      this.replaceInteraction();
+    }
+
+    this.interaction.setActive(isActive);
+  }
+
   componentWillUnmount() {
-    this.interaction.setActive(false);
+    const {props} = this;
+    const {interactions} = props;
+    interactions.remove(this.interaction);
   }
 
   render() {

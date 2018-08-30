@@ -87,7 +87,7 @@ describe('<DragPan />', ()=> {
     expect(interactions.getArray()[0]).not.toEqual(interaction1);
   });
 
-  it('sets the interaction inactive on unmount', ()=> {
+  it('remove the interaction on unmount', ()=> {
     const interactions = new OlCollection();
     const rendered = renderer.create(
       <DragPan
@@ -96,8 +96,10 @@ describe('<DragPan />', ()=> {
       />
     );
 
+    expect(interactions.getArray()[0]).not.toBe(undefined);
+
     rendered.unmount();
 
-    expect(interactions.getArray()[0].getActive()).toBe(false);
+    expect(interactions.getArray()[0]).toBe(undefined);
   });
 });

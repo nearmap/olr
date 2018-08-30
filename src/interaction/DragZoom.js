@@ -22,34 +22,48 @@ class DragZoom extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const {interactions} = props;
-    const {active, className, condition, duration, out} = props;
+    const {interactions, active, className, condition, duration, out} = props;
     const isActive = active === undefined ? true : active;
 
     this.interaction = new OlDragZoom({className, condition, duration, out});
     this.interaction.setActive(isActive);
-    this.index = interactions.push(this.interaction) - 1;
+    interactions.push(this.interaction);
   }
 
-  componentDidUpdate() {
+  replaceInteraction() {
     const {props} = this;
-    const {interactions} = props;
-    const {active, className, condition, duration, out} = props;
-    const isActive = active === undefined ? true : active;
+    const {interactions, className, condition, duration, out} = props;
 
     const newInteraction = new OlDragZoom({
       className, condition, duration, out
     });
-    newInteraction.setActive(isActive);
-
-    interactions.removeAt(this.index);
-    interactions.insertAt(this.index, newInteraction);
-
+    const index = interactions.getArray().indexOf(this.interaction);
+    interactions.remove(this.interaction);
+    interactions.insertAt(index, newInteraction);
     this.interaction = newInteraction;
   }
 
+  componentDidUpdate(previousProps) {
+    const {props} = this;
+    const {active, className, condition, duration, out} = props;
+    const isActive = active === undefined ? true : active;
+
+    if (
+      className !== previousProps.className
+      || condition !== previousProps.condition
+      || duration !== previousProps.duration
+      || out !== previousProps.out
+    ) {
+      this.replaceInteraction();
+    }
+
+    this.interaction.setActive(isActive);
+  }
+
   componentWillUnmount() {
-    this.interaction.setActive(false);
+    const {props} = this;
+    const {interactions} = props;
+    interactions.remove(this.interaction);
   }
 
   render() {
