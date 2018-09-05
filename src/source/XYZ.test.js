@@ -7,7 +7,7 @@ import XYZ from 'ol/source/XYZ';
 import {consumer} from '../hoc';
 import {LayerCtx} from '../layer';
 import {SourceCtx} from '.';
-import XYZSource from './xyz';
+import XYZSource from './XYZ';
 
 
 jest.mock('ol/source/XYZ', ()=> jest.fn((...args)=> {
