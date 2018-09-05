@@ -4,7 +4,7 @@ import OlVector from 'ol/source/Vector';
 import {consumer} from '../hoc';
 import {LayerCtx} from '../layer';
 import {SourceCtx} from '.';
-import VectorSource from './vector';
+import VectorSource from './Vector';
 
 
 const SourceChild = consumer(SourceCtx)(({source})=> (
