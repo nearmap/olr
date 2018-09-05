@@ -15,4 +15,4 @@ jobs:
       script: npm run ci
     - stage: publish
       if: branch = master
-      script: npm run semantic-release
+      script: npm run release

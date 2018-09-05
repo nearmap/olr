@@ -24,7 +24,8 @@
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
     "ci": "run-s -s clean test build",
-    "semantic-release": "run-s -s clean build semantic-release"
+    "release": "run-s -s clean build semantic-release",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-rc.1",
