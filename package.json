@@ -1,5 +1,5 @@
 {
-  "name": "@nearmap/olr",
+  "name": "olr",
   "version": "0.0.0-semantically-released",
   "engines": {
     "node": ">=9.0.0"
