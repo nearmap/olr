@@ -2,8 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import OlView from 'ol/View';
 import {get as getProjection} from 'ol/proj';
-import {MapCtx} from './map';
-import View from './view';
+import {MapCtx} from './Map';
+import View from './View';
 
 
 describe('<View />', ()=> {
