@@ -1,8 +1,8 @@
 import React, {createContext} from 'react';
 import PropTypes from 'prop-types';
 import OlMap from 'ol/Map';
-import {LayerGroupCtx} from './layer/group';
-import EventHandler from './event-handler';
+import {LayerGroupCtx} from './layer/Group';
+import EventHandler from './EventHandler';
 
 
 export const MapCtx = createContext({map: null});

@@ -2,25 +2,23 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {consumer} from '../hoc';
 import {LayerCtx} from '.';
-import {LayerGroupCtx} from './group';
-import TileLayer from './tile';
+import {LayerGroupCtx} from './Group';
+import VectorLayer from './Vector';
 
 
-const LayerChild = consumer(LayerCtx)(
-  ({layer})=> (
-    <layer-child layer={layer} />
-  )
-);
+const LayerChild = consumer(LayerCtx)(({layer})=> (
+  <layer-child layer={layer} />
+));
 
 
-describe('<TileLayer />', ()=> {
+describe('<VectorLayer />', ()=> {
   const layers = {push: jest.fn(), remove: jest.fn()};
   const parent = {getLayers: ()=> layers};
 
   it('adds its own layer to parent layer-group from context', ()=> {
     renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
-        <TileLayer id='test-layer' />
+        <VectorLayer id='test-layer' />
       </LayerGroupCtx.Provider>
     );
 
@@ -32,7 +30,7 @@ describe('<TileLayer />', ()=> {
   it('removes its own layer from parent layer-group', ()=> {
     const rendered = renderer.create(
       <LayerGroupCtx.Provider value={{layerGroup: parent}}>
-        <TileLayer />
+        <VectorLayer />
       </LayerGroupCtx.Provider>
     );
 
@@ -45,9 +43,9 @@ describe('<TileLayer />', ()=> {
 
   it('provides own layer to children via context', ()=> {
     const rendered = renderer.create(
-      <TileLayer layerGroup={parent}>
+      <VectorLayer layerGroup={parent}>
         <LayerChild />
-      </TileLayer>
+      </VectorLayer>
     );
 
     const layerChild = rendered.root.findByType('layer-child');
@@ -59,9 +57,9 @@ describe('<TileLayer />', ()=> {
 
   it('handles prop updates', ()=> {
     renderer.create(
-      <TileLayer layerGroup={parent} />
+      <VectorLayer layerGroup={parent} />
     ).update(
-      <TileLayer layerGroup={parent} visible={true} />
+      <VectorLayer layerGroup={parent} visible={true} />
     );
 
     const [[layer]] = layers.push.mock.calls;

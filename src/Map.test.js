@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import OlMap from 'ol/Map';
-import EventHandler from './event-handler';
+import EventHandler from './EventHandler';
 import {consumer} from './hoc';
-import Map, {MapCtx} from './map';
-import {LayerGroupCtx} from './layer/group';
+import Map, {MapCtx} from './Map';
+import {LayerGroupCtx} from './layer/Group';
 
 
 /* eslint no-underscore-dangle: 0 */
