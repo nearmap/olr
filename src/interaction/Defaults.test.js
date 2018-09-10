@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Map from '../map';
+import Map from '../Map';
 import Interactions from '.';
 import Defaults from './Defaults';
 import DragRotate from './DragRotate';

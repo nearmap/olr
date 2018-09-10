@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import PropTypes from 'prop-types';
 import {consumer} from '../hoc';
 import OlCollection from 'ol/Collection';
-import Map from '../map';
+import Map from '../Map';
 import Interactions from '.';
 import {InteractionCtx} from '.';
 
