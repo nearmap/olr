@@ -1,32 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OlTileLayer from 'ol/layer/Tile';
-import EventHandler from '../event-handler';
+import OlVectorLayer from 'ol/layer/Vector';
 import {consumer} from '../hoc';
 import {LayerCtx} from '.';
-import {LayerGroupCtx} from './group';
+import {LayerGroupCtx} from './Group';
 
 
 @consumer(LayerGroupCtx)
-class TileLayer extends React.PureComponent {
+class VectorLayer extends React.Component {
   static propTypes = {
     layerGroup: PropTypes.object,
     id: PropTypes.string,
     visible: PropTypes.bool,
-    children: PropTypes.any,
-    onPreCompose: PropTypes.func,
-    onPostCompose: PropTypes.func
+    style: PropTypes.func,
+    children: PropTypes.any
   };
 
   constructor(props) {
     super(props);
 
-    this.layer = new OlTileLayer({
-      id: this.props.id
+    this.layer = new OlVectorLayer({
+      id: this.props.id,
+      updateWhileAnimating: true,
+      updateWhileInteracting: true
     });
   }
 
-  // TODO: should that live in the constructor
+  // TODO: should this live in constructor
   componentDidMount() {
     const {layerGroup} = this.props;
     layerGroup.getLayers().push(this.layer);
@@ -40,26 +40,20 @@ class TileLayer extends React.PureComponent {
 
   componentDidUpdate() {
     const {visible} = this.props;
-    const {layer} = this;
 
-    layer.setVisible(visible);
+    this.layer.setVisible(visible);
   }
 
   render() {
     const {layer, props} = this;
-    const {children, onPreCompose, onPostCompose} = props;
 
     return (
       <LayerCtx.Provider value={{layer}}>
-        <EventHandler
-          target={layer}
-          precompose={onPreCompose}
-          postcompose={onPostCompose}
-        />
-        {children}
+        {props.children}
       </LayerCtx.Provider>
     );
   }
 }
 
-export default TileLayer;
+
+export default VectorLayer;

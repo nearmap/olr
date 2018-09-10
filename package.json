@@ -1,10 +1,9 @@
 {
-  "name": "@nearmap/olr",
+  "name": "olr",
   "version": "0.0.0-semantically-released",
   "engines": {
     "node": ">=9.0.0"
   },
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:nearmap/olr.git"
@@ -24,6 +23,7 @@
     "jest": "jest --config ./jest.config.json --verbose --runInBand --no-cache ",
     "preci": "npm --loglevel=warn install",
     "ci": "run-s -s clean test build",
+    "release": "run-s -s clean build semantic-release",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {

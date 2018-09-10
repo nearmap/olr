@@ -6,7 +6,7 @@ import OlVectorLayer from 'ol/layer/Vector';
 import {consumer} from '../hoc';
 import {LayerCtx} from '../layer';
 import VectorSource from './Vector';
-import EventHandler from '../event-handler';
+import EventHandler from '../EventHandler';
 import {SourceCtx} from '.';
 
 
