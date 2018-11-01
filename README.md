@@ -1,4 +1,7 @@
 # olr
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/nearmap/olr.svg)](https://greenkeeper.io/)
+
 OpenLayers React Component Library
 
 
