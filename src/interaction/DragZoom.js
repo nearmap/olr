@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OlDragZoom from 'ol/interaction/DragZoom';
 import {consumer} from '../hoc';
 import {InteractionCtx} from '.';
+import {replaceInCollection} from './utils';
 
 
 @consumer(InteractionCtx)
@@ -37,9 +38,7 @@ class DragZoom extends React.PureComponent {
     const newInteraction = new OlDragZoom({
       className, condition, duration, out
     });
-    const index = interactions.getArray().indexOf(this.interaction);
-    interactions.remove(this.interaction);
-    interactions.insertAt(index, newInteraction);
+    replaceInCollection(interactions, this.interaction, newInteraction);
     this.interaction = newInteraction;
   }
 
