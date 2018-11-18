@@ -1,3 +1,14 @@
+
+const prodBrowsers = [
+  'last 2 versions',
+  'not IE < 11'
+];
+
+const devBrowsers = [
+  'last 1 Chrome versions'
+];
+
+
 // eslint-disable-next-line no-undef
 module.exports = {
   // Common to all envs below.
@@ -11,9 +22,11 @@ module.exports = {
     '@babel/plugin-proposal-optional-catch-binding',
     '@babel/plugin-proposal-throw-expressions'
   ],
+
   presets: ['@babel/preset-react'],
-  // Used as the default for running babel-node scripts
+
   env: {
+    // Used as the default for running babel-node scripts
     development: {
       sourceMaps: 'both',
       presets: [
@@ -34,6 +47,50 @@ module.exports = {
         ['@babel/preset-env', {
           targets: {
             node: 'current'
+          }
+        }]
+      ],
+      plugins: [
+        'transform-amd-to-commonjs'
+      ]
+    },
+    // Default env used for webpack when e.g. running the dev server.
+    // It will minimize transcompilation to target the
+    // latest browsers. This should allow easier debugging.
+    'webpack-dev': {
+      sourceMaps: 'both',
+      presets: [
+        ['@babel/preset-env', {
+          modules: false,
+          useBuiltIns: 'entry',
+          targets: {
+            browsers: devBrowsers
+          }
+        }]
+      ]
+    },
+    // Alternative env used for debugging and development.
+    // It targets all production browsers but with all dev goodies from above.
+    'webpack-dev-prod': {
+      sourceMaps: 'both',
+      presets: [
+        ['@babel/preset-env', {
+          modules: false,
+          useBuiltIns: 'entry',
+          targets: {
+            browsers: prodBrowsers
+          }
+        }]
+      ]
+    },
+    // The default used by webpack to package our application for production.
+    production: {
+      presets: [
+        ['@babel/preset-env', {
+          modules: false,
+          useBuiltIns: 'entry',
+          targets: {
+            browsers: prodBrowsers
           }
         }]
       ]
