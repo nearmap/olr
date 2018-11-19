@@ -7,8 +7,13 @@ module.exports = {
   setupTestFrameworkScriptFile: '<rootDir>/src/testing/setup-framework.js',
 
   moduleNameMapper: {
-    '^.*\\.scss$': '<rootDir>/src/testing/mock-scss.js'
+    '^.*\\.css$': '<rootDir>/src/testing/mock-css.js'
   },
+
+  collectCoverageFrom: [
+    ...config.collectCoverageFrom,
+    '!src/example/*.js'
+  ],
 
   transform: {
     ...config.transform,

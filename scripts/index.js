@@ -1,5 +1,6 @@
 export default {
   start: 'echo TODO',
+  server: 'webpack-dev-server --progress',
 
   build: 'run build:dir build:pkg build:files',
   'build:dir': 'mkdir -p ./build/pkg/',

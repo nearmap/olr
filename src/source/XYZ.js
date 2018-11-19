@@ -5,6 +5,7 @@ import XYZ from 'ol/source/XYZ';
 import {consumer} from '../hoc';
 import {LayerCtx} from '../layer';
 import {SourceCtx} from '.';
+import EventHandler from '../EventHandler';
 
 
 @consumer(LayerCtx)
@@ -30,7 +31,9 @@ class XYZSource extends React.PureComponent {
     url: PropTypes.string,
     urls: PropTypes.array,
     wrapX: PropTypes.bool,
-    transition: PropTypes.number
+    transition: PropTypes.number,
+    onTileLoadStart: PropTypes.func,
+    onTileLoadEnd: PropTypes.func
   };
 
 
@@ -96,10 +99,15 @@ class XYZSource extends React.PureComponent {
 
   render() {
     const {source, props} = this;
-    const {children} = props;
+    const {children, onTileLoadStart, onTileLoadEnd} = props;
 
     return (
       <SourceCtx.Provider value={{source}}>
+        <EventHandler
+          target={source}
+          tileloadstart={onTileLoadStart}
+          tileloadend={onTileLoadEnd}
+        />
         {children}
       </SourceCtx.Provider>
     );
