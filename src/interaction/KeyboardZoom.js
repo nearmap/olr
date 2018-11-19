@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OlKeyboardZoom from 'ol/interaction/KeyboardZoom';
 import {consumer} from '../hoc';
 import {InteractionCtx} from '.';
+import {replaceInCollection} from './utils';
 
 
 @consumer(InteractionCtx)
@@ -34,9 +35,7 @@ class KeyboardZoom extends React.PureComponent {
     const {interactions, condition, delta, duration} = props;
 
     const newInteraction = new OlKeyboardZoom({condition, delta, duration});
-    const index = interactions.getArray().indexOf(this.interaction);
-    interactions.remove(this.interaction);
-    interactions.insertAt(index, newInteraction);
+    replaceInCollection(interactions, this.interaction, newInteraction);
     this.interaction = newInteraction;
   }
 

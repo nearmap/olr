@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OlPinchRotate from 'ol/interaction/PinchRotate';
 import {consumer} from '../hoc';
 import {InteractionCtx} from '.';
+import {replaceInCollection} from './utils';
 
 
 @consumer(InteractionCtx)
@@ -33,9 +34,7 @@ class PinchRotate extends React.PureComponent {
     const {interactions, duration, threshold} = props;
 
     const newInteraction = new OlPinchRotate({duration, threshold});
-    const index = interactions.getArray().indexOf(this.interaction);
-    interactions.remove(this.interaction);
-    interactions.insertAt(index, newInteraction);
+    replaceInCollection(interactions, this.interaction, newInteraction);
     this.interaction = newInteraction;
   }
 

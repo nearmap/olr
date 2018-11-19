@@ -6,7 +6,6 @@ import {MapCtx} from '../Map';
 
 export const InteractionCtx = createContext({interactions: null});
 
-
 @consumer(MapCtx)
 class Interactions extends React.PureComponent {
   static propTypes = {
@@ -23,7 +22,6 @@ class Interactions extends React.PureComponent {
   render() {
     const {interactions} = this;
     const {children} = this.props;
-
     return (
       <InteractionCtx.Provider value={{interactions}}>
         {children}

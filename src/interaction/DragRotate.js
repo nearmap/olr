@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OlDragRotate from 'ol/interaction/DragRotate';
 import {consumer} from '../hoc';
 import {InteractionCtx} from '.';
+import {replaceInCollection} from './utils';
 
 
 @consumer(InteractionCtx)
@@ -33,9 +34,7 @@ class DragRotate extends React.PureComponent {
     const {interactions, condition, duration} = props;
 
     const newInteraction = new OlDragRotate({condition, duration});
-    const index = interactions.getArray().indexOf(this.interaction);
-    interactions.remove(this.interaction);
-    interactions.insertAt(index, newInteraction);
+    replaceInCollection(interactions, this.interaction, newInteraction);
     this.interaction = newInteraction;
   }
 
