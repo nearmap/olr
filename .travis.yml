@@ -12,7 +12,7 @@ node_js:
 jobs:
   include:
     - stage: test
-      script: npm run ci
+      script: npx run ci
     - stage: publish
       if: branch = master
-      script: npm run release
+      script: npx run release

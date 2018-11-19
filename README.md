@@ -28,7 +28,7 @@ npm install
 Run the tests:
 
 ```bash
-npm test
+npx run test
 ```
 
 ## Contribute

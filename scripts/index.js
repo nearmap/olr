@@ -1,15 +1,11 @@
 export default {
   start: 'echo TODO',
 
-  build: 'run-s build:*',
+  build: 'run build:dir build:pkg build:files',
+  'build:dir': 'mkdir -p ./build/pkg/',
   'build:pkg': "babel src --out-dir build/pkg --ignore '**/*.test.js'",
-  'build:files': (
-    'cp ./package.json build/pkg/ && ' +
-    'cp ./README.md build/pkg/ && ' +
-    'cp ./LICENSE build/pkg/'
-  ),
+  'build:files': 'cp ./package.json ./README.md ./LICENSE ./build/pkg/',
   
-
   clean: 'rimraf ./build',
 
   commit: 'git-cz',
@@ -27,6 +23,6 @@ export default {
 
   preci: 'npm --loglevel=warn install',
   ci: 'run clean test build',
-  release: 'run -s clean build semantic-release',
+  release: 'run clean build semantic-release',
   'semantic-release': 'semantic-release'
 };
