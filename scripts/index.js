@@ -12,7 +12,7 @@ export default {
 
   clean: 'rimraf ./build',
 
-  commit: 'run git-cz',
+  commit: 'git-cz',
 
   test: 'run lint jest:full',
 
