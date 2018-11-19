@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OlKeyboardPan from 'ol/interaction/KeyboardPan';
 import {consumer} from '../hoc';
 import {InteractionCtx} from '.';
+import {replaceInCollection} from './utils';
 
 
 @consumer(InteractionCtx)
@@ -36,9 +37,7 @@ class KeyboardPan extends React.PureComponent {
     const newInteraction = new OlKeyboardPan({
       condition, duration, pixelDelta
     });
-    const index = interactions.getArray().indexOf(this.interaction);
-    interactions.remove(this.interaction);
-    interactions.insertAt(index, newInteraction);
+    replaceInCollection(interactions, this.interaction, newInteraction);
     this.interaction = newInteraction;
   }
 
