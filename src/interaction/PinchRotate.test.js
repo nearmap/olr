@@ -44,7 +44,9 @@ describe('<PinchRotate />', ()=> {
       />
     );
 
-    expect(OlPinchRotate).toHaveBeenCalledWith({duration: 100});
+    expect(OlPinchRotate).toHaveBeenCalledWith(expect.objectContaining({
+      duration: 100
+    }));
     expect(interactions.getArray().length).toBe(1);
   });
 
@@ -57,7 +59,9 @@ describe('<PinchRotate />', ()=> {
       />
     );
 
-    expect(OlPinchRotate).toHaveBeenCalledWith({threshold: 100});
+    expect(OlPinchRotate).toHaveBeenCalledWith(expect.objectContaining({
+      threshold: 100
+    }));
     expect(interactions.getArray().length).toBe(1);
   });
 
