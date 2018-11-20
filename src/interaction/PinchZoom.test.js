@@ -44,7 +44,9 @@ describe('<PinchZoom />', ()=> {
       />
     );
 
-    expect(OlPinchZoom).toHaveBeenCalledWith({constrainResolution: true});
+    expect(OlPinchZoom).toHaveBeenCalledWith(expect.objectContaining({
+      constrainResolution: true
+    }));
     expect(interactions.getArray().length).toBe(1);
   });
 
@@ -57,7 +59,9 @@ describe('<PinchZoom />', ()=> {
       />
     );
 
-    expect(OlPinchZoom).toHaveBeenCalledWith({duration: 100});
+    expect(OlPinchZoom).toHaveBeenCalledWith(expect.objectContaining({
+      duration: 100
+    }));
     expect(interactions.getArray().length).toBe(1);
   });
 
